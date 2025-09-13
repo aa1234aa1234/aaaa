@@ -91,3 +91,4 @@ C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\
 C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.PerformanceCounter.dll
 C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Management.dll
+C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\obj\Debug\net8.0-windows\ohmygod.sourcelink.json
