@@ -152,7 +152,7 @@ namespace ohmygod
             //images.Add(new Bitmap(@".\images\meritz\현재가.png"));
             //images.Add(new Bitmap(@".\images\meritz\매수.png"));
             //images.Add(new Bitmap(@".\images\meritz\주식매수주문.png"));
-            if(FindWindow(null,"영웅문4 Login") == IntPtr.Zero && FindWindow(null,"영웅문4") == IntPtr.Zero)
+            if (FindWindow(null, "영웅문4 Login") == IntPtr.Zero && FindWindow(null, "영웅문4") == IntPtr.Zero)
             {
                 ProcessStartInfo start = new ProcessStartInfo();
                 start.FileName = @"C:\KiwoomHero4\Bin\NKStarter.exe";
@@ -169,7 +169,7 @@ namespace ohmygod
                 }
             }
             wnd = FindWindow(null, "영웅문4 Login");
-            wnd = FindWindow(null, "영웅문4") == IntPtr.Zero ? wnd : FindWindow(null,"영웅문4");
+            wnd = FindWindow(null, "영웅문4") == IntPtr.Zero ? wnd : FindWindow(null, "영웅문4");
             SetWindowPos(wnd, IntPtr.Zero, 0, 0, 1000, 800, 0);
             button1.Visible = true;
             ewfaklwje();
@@ -226,9 +226,11 @@ namespace ohmygod
 
         private void typeString(string str)
         {
-            foreach(char a in str)
+            foreach (char a in str)
             {
+                Console.WriteLine(a);
                 PressKey(CharToVirtualKey(a));
+                Thread.Sleep(50);
             }
         }
 
@@ -240,22 +242,26 @@ namespace ohmygod
             rectangle = checkImage(new Point(rect.Left, rect.Top), new Point(rect.Right, rect.Bottom), new Vector2(rect.Right - rect.Left, rect.Bottom - rect.Top), image);
             if (rectangle.X == -1)
             {
-                textBox1.Text += "ewfawe\n";
+                BeginInvoke(new Action(() => {
+                    textBox1.Text += "ewfawe\n";
+                }));
+                
                 return;
             }
 
             click(new Point(rectangle.X + rectangle.Width / 2 + offset.X, rectangle.Y + rectangle.Height / 2 + offset.Y));
         }
 
-        private void buyStock(int stockcode, int size, int price)
+        private void buyStock(string stockcode, int size, int price)
         {
-            Point[] offset = { new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270,205) };
-            string[] input = {stockcode.ToString(), size.ToString(), price.ToString()};
+            Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
+            string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
             Bitmap buy = new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\buy.png");
             for (int i = 0; i < offset.Length; i++)
             {
                 findAndClick(buy, offset[i]);
-                if(i < input.Length) typeString(input[i]);
+                if (i < input.Length) typeString(input[i]);
+                Thread.Sleep(50);
             }
             click(new Point(452, 419));
         }
@@ -276,7 +282,7 @@ namespace ohmygod
         {
             Bitmap aa = new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\awef.png");
             int[] x = { (320 + 370) / 2, (371 + 421) / 2, (422 + 465) / 2, (466 + 509) / 2, (510 + 553) / 2, (554 + 597) / 2, (598 + 641) / 2, (642 + 685) / 2, (686 + 729) / 2, (730 + 773) / 2, (774 + 818) / 2 };
-            foreach(int a in x)
+            foreach (int a in x)
             {
                 buttonBounds.Add(new Point(a, 69));
             }
@@ -287,7 +293,7 @@ namespace ohmygod
             //Console.WriteLine(end.Y - images[imageIdx].Height);
             //Console.WriteLine(imageIdx);
             Vector2 screenSize = size;
-            using (Bitmap screen = new Bitmap(1920,1080))
+            using (Bitmap screen = new Bitmap(1920, 1080))
             {
                 using (Graphics graphic = Graphics.FromImage(screen))
                 {
@@ -387,7 +393,7 @@ namespace ohmygod
             Mouse.LeftClick(point);
         }
 
-        
+
         private async Task clearscreen()
         {
             RECT rect;
@@ -395,7 +401,7 @@ namespace ohmygod
             SetFocus(wnd);
             GetWindowRect(wnd, out rect);
             Rectangle rectangle;
-            while ((rectangle = checkImage(new Point(rect.Left, rect.Top), new Point(rect.Right, rect.Bottom), new Vector2(rect.Right - rect.Left, rect.Bottom - rect.Top),images[0])).X != -1)
+            while ((rectangle = checkImage(new Point(rect.Left, rect.Top), new Point(rect.Right, rect.Bottom), new Vector2(rect.Right - rect.Left, rect.Bottom - rect.Top), images[0])).X != -1)
             {
                 Console.WriteLine(rectangle.X + " " + rectangle.Y);
                 SetForegroundWindow(wnd);
@@ -422,18 +428,42 @@ namespace ohmygod
             SetForegroundWindow(wnd);
             SetFocus(wnd);
 
-            click(new Point(rectangle.X + rectangle.Width/2, rectangle.Y + rectangle.Height/2));
+            click(new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2));
         }
 
+
+        private void login(int a, string pin = "")
+        {
+            click(new Point(407 + a * 58, 40));
+            switch(a)
+            {
+                case 0:
+                case 1:
+                    click(new Point(493, 90));
+                    Thread.Sleep(100);
+                    click(new Point(500, 485));
+                    typeString(pin);
+                    Thread.Sleep(100);
+                    click(new Point(600, 525));
+                    break;
+                case 2:
+                case 3:
+                    break;
+            }
+            wnd = FindWindow(null, "영웅문4 Login");
+            while (wnd == IntPtr.Zero) { wnd = FindWindow(null, "영웅문4"); Thread.Sleep(1000); }
+        }
         private async void button1_Click(object sender, EventArgs e)
         {
-            await Task.Run(() => { 
+            await Task.Run(() =>
+            {
                 clearscreen();
                 click(buttonBounds[2]);
-                buyStock(039490, 1, 200000);
+                Thread.Sleep(1000);
+                buyStock("039490", 1, 200000);
             });
             //await Task.Run(() => { main(); });
-            
+
             //TesseractEngine t = new TesseractEngine("./tessdata", "kor", EngineMode.Default);
             //t.SetVariable("tessedit_char_whitelist", "-01234567890");
             //Console.WriteLine(t.Process(Pix.LoadFromFile("C:\\Users\\sw_303\\Desktop\\cap.png"), PageSegMode.SingleBlock).GetText());
@@ -474,6 +504,11 @@ namespace ohmygod
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            login(0, "690201");
         }
     }
 }
