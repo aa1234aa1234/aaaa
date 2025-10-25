@@ -252,11 +252,12 @@ namespace ohmygod
             click(new Point(rectangle.X + rectangle.Width / 2 + offset.X, rectangle.Y + rectangle.Height / 2 + offset.Y));
         }
 
-        private void buyStock(string stockcode, int size, int price)
+        private void SetBuyOrder(string stockcode, int size, int price)
         {
             Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
             string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
             Bitmap buy = new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\buy.png");
+            findAndClick(buy, new Point(225, 48));
             for (int i = 0; i < offset.Length; i++)
             {
                 findAndClick(buy, offset[i]);
@@ -404,9 +405,10 @@ namespace ohmygod
             while ((rectangle = checkImage(new Point(rect.Left, rect.Top), new Point(rect.Right, rect.Bottom), new Vector2(rect.Right - rect.Left, rect.Bottom - rect.Top), images[0])).X != -1)
             {
                 Console.WriteLine(rectangle.X + " " + rectangle.Y);
-                SetForegroundWindow(wnd);
-                SetFocus(wnd);
-                await click(new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2));
+                click(new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2));
+                //SetForegroundWindow(wnd);
+                //SetFocus(wnd);
+                //await click(new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2));
                 imageIdx = 0;
                 Task.Delay(2000);
             }
@@ -434,6 +436,8 @@ namespace ohmygod
 
         private void login(int a, string pin = "")
         {
+            SetForegroundWindow(wnd);
+            SetFocus(wnd);
             click(new Point(407 + a * 58, 40));
             switch(a)
             {
@@ -450,8 +454,19 @@ namespace ohmygod
                 case 3:
                     break;
             }
-            wnd = FindWindow(null, "영웅문4 Login");
+            wnd = FindWindow(null, "영웅문4");
             while (wnd == IntPtr.Zero) { wnd = FindWindow(null, "영웅문4"); Thread.Sleep(1000); }
+        }
+
+        Bitmap ocr(Vector2 start, Vector2 size)
+        {
+            Vector2 screenSize = size;
+            Bitmap screen = new Bitmap((int)size.X, (int)size.Y);
+            using (Graphics graphic = Graphics.FromImage(screen))
+            {
+                graphic.CopyFromScreen(new Point((int)start.X, (int)start.Y), Point.Empty, screen.Size);
+            }
+            return screen;
         }
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -460,7 +475,17 @@ namespace ohmygod
                 clearscreen();
                 click(buttonBounds[2]);
                 Thread.Sleep(1000);
-                buyStock("039490", 1, 200000);
+                Pix pix = PixConverter.ToPix(ocr(new Vector2(14, 565), new Vector2(700, 20)));
+
+                var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+                var result = engine.Process(pix);
+
+                if(result.GetText().Contains("[999999]"))
+                {
+                    MessageBox.Show("장이 열리지 않은 날입니다.");
+                    return;
+                }
+                SetBuyOrder("039490", 1, 200000);
             });
             //await Task.Run(() => { main(); });
 
