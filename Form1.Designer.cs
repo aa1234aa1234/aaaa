@@ -34,6 +34,8 @@
             textBox1 = new TextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             button2 = new Button();
+            label2 = new Label();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // button1
@@ -80,11 +82,30 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(560, 53);
+            label2.Name = "label2";
+            label2.Size = new Size(39, 15);
+            label2.TabIndex = 4;
+            label2.Text = "label2";
+            // 
+            // panel1
+            // 
+            panel1.Location = new Point(562, 122);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(200, 195);
+            panel1.TabIndex = 5;
+            panel1.Paint += panel1_Paint;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(panel1);
+            Controls.Add(label2);
             Controls.Add(button2);
             Controls.Add(textBox1);
             Controls.Add(label1);
@@ -103,5 +124,7 @@
         private TextBox textBox1;
         private System.Windows.Forms.Timer timer1;
         private Button button2;
+        private Label label2;
+        private Panel panel1;
     }
 }
