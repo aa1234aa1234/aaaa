@@ -137,7 +137,7 @@ namespace ohmygod
         List<Bitmap> images = new List<Bitmap>();
         List<Bitmap> buttons = new List<Bitmap>();
         List<Point> buttonBounds = new List<Point>();
-        Bitmap bitmap;
+        Bitmap bitmap, zero_placeholder;
 
         public Form1()
         {
@@ -148,6 +148,7 @@ namespace ohmygod
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            zero_placeholder = new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom/zero.png");
             images.Add(new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\a.png"));
             //images.Add(new Bitmap(@".\images\meritz\인증서(1).png"));
             //images.Add(new Bitmap(@".\images\meritz\로그인.png"));
@@ -172,7 +173,7 @@ namespace ohmygod
             }
             wnd = FindWindow(null, "영웅문4 Login");
             wnd = FindWindow(null, "영웅문4") == IntPtr.Zero ? wnd : FindWindow(null, "영웅문4");
-            SetWindowPos(wnd, IntPtr.Zero, 0, 0, 1000, 800, 0);
+            SetWindowPos(wnd, IntPtr.Zero, 0, 0, 1200, 800, 0);
             button1.Visible = true;
             ewfaklwje();
             SetForegroundWindow(wnd);
@@ -180,15 +181,20 @@ namespace ohmygod
             clearscreen();
             click(new Point(57, 88));
             typeString("0345", true);
-            Thread.Sleep(100);
+            Thread.Sleep(500);
             Rectangle rect;
             findAndClick(out rect, new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\account.png"));
             Thread.Sleep(100);
-            Pix pix = PixConverter.ToPix(ocr(new Vector2(rect.X + rect.Width + 5, rect.Y), new Vector2(95, 16)));
+            ocr(new Vector2(rect.X + rect.Width + 5, rect.Y + 3), new Vector2(95, 13));
+            Bitmap thing = new Bitmap(bitmap.Width + zero_placeholder.Width, bitmap.Height + 10);
+            Graphics.FromImage(thing).DrawImage(bitmap, new Point(0, 0));
+            Graphics.FromImage(thing).DrawImage(zero_placeholder, new Point(bitmap.Width, 2));
+            Pix pix = PixConverter.ToPix(bitmap);
+            //bitmap = thing;
 
             var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.TesseractOnly);
-            engine.SetVariable("tessedit_char_whitelist", "0123456789");
-            var result = engine.Process(pix);
+            //engine.SetVariable("tessedit_char_whitelist", "0123456789");
+            var result = engine.Process(pix, PageSegMode.SingleBlock);
             Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
             BeginInvoke(new Action(() =>
             {
@@ -197,8 +203,8 @@ namespace ohmygod
                 pix.Dispose();
                 engine.Dispose();
             }));
-            
-            
+
+            bitmap.Save("C:\\Users\\sw_303\\Desktop\\fewaf.png");
             //new Thread(a).Start();
         }
 
@@ -294,7 +300,7 @@ namespace ohmygod
                 if (i < input.Length) typeString(input[i]);
                 Thread.Sleep(50);
             }
-            click(new Point(452, 419));
+            click(new Point(550, 419));
         }
 
         private void SetSellOffer(string stockcode, int size, int price)
@@ -310,7 +316,7 @@ namespace ohmygod
                 if (i < input.Length) typeString(input[i]);
                 Thread.Sleep(50);
             }
-            click(new Point(452, 419));
+            click(new Point(550, 419));
         }
 
         private void a()
@@ -590,6 +596,17 @@ namespace ohmygod
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(bitmap, new Point(0, 0));
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                clearscreen();
+                click(buttonBounds[2]);
+                Thread.Sleep(1000);
+                SetBuyOrder("039490", 1, 102314);
+            });
         }
     }
 }
