@@ -15,6 +15,10 @@
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:app1.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ohmygod.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:ohmygod.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -29,44 +33,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "app1.manifest",
-              "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\app1.manifest",
-              "RelativeDocumentMoniker": "app1.manifest",
-              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\app1.manifest",
-              "RelativeToolTip": "app1.manifest",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAAIAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
-              "WhenOpened": "2025-10-25T08:53:34.75Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ohmygod.csproj",
-              "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ohmygod.csproj",
-              "RelativeDocumentMoniker": "ohmygod.csproj",
-              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ohmygod.csproj",
-              "RelativeToolTip": "ohmygod.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-16T09:37:19.49Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "README.txt",
-              "DocumentMoniker": "C:\\Users\\sw_303\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
-              "ToolTip": "C:\\Users\\sw_303\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
-              "RelativeToolTip": "..\\..\\..\\..\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
-              "ViewState": "AgIAABUAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-07-26T08:16:19.193Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -75,10 +43,61 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs*",
               "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AgIAALEAAAAAAAAAAAAAAMgAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAlwMEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T05:56:17.988Z",
+              "WhenOpened": "2025-12-06T08:38:37.764Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T08:38:27.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "app1.manifest",
+              "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\app1.manifest",
+              "RelativeDocumentMoniker": "app1.manifest",
+              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\app1.manifest",
+              "RelativeToolTip": "app1.manifest",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAADYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
+              "WhenOpened": "2025-10-25T08:53:34.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ohmygod.csproj",
+              "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ohmygod.csproj",
+              "RelativeDocumentMoniker": "ohmygod.csproj",
+              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ohmygod.csproj",
+              "RelativeToolTip": "ohmygod.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-16T09:37:19.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "README.txt",
+              "DocumentMoniker": "C:\\Users\\sw_303\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
+              "ToolTip": "C:\\Users\\sw_303\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
+              "RelativeToolTip": "..\\..\\..\\..\\.nuget\\packages\\ironocr\\2025.7.19\\README.txt",
+              "ViewState": "AgIAABUAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-07-26T08:16:19.193Z"
             },
             {
               "$type": "Document",

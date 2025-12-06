@@ -193,8 +193,9 @@ namespace ohmygod
             //bitmap = thing;
 
             var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.TesseractOnly);
-            //engine.SetVariable("tessedit_char_whitelist", "0123456789");
-            var result = engine.Process(pix, PageSegMode.SingleBlock);
+            engine.SetVariable("tessedit_char_whitelist", "0123456789");
+            engine.DefaultPageSegMode = PageSegMode.SingleLine;
+            var result = engine.Process(pix);
             Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
             BeginInvoke(new Action(() =>
             {
@@ -206,6 +207,16 @@ namespace ohmygod
 
             bitmap.Save("C:\\Users\\sw_303\\Desktop\\fewaf.png");
             //new Thread(a).Start();
+        }
+
+        private void aaa()
+        {
+            int x=-1, y=-1;
+            while(true)
+            {
+                if (x != -1 && y != -1) break;
+                if(bitmap.GetPixel(x,y).
+            }
         }
 
         private static ushort CharToVirtualKey(char ch)
