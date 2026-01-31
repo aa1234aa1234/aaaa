@@ -23,12 +23,13 @@ namespace ohmygod
         List<Point> buttonBounds = new List<Point>();
         Bitmap bitmap, zero_placeholder;
 
-        Application app = new Application();
+        App app = new App();
 
         public Form1()
         {
             InitializeComponent();
             Console.WriteLine("hello1");
+            app.run(this);
         }
 
 
@@ -41,57 +42,57 @@ namespace ohmygod
             //images.Add(new Bitmap(@".\images\meritz\현재가.png"));
             //images.Add(new Bitmap(@".\images\meritz\매수.png"));
             //images.Add(new Bitmap(@".\images\meritz\주식매수주문.png"));
-            if (FindWindow(null, "영웅문4 Login") == IntPtr.Zero && FindWindow(null, "영웅문4") == IntPtr.Zero)
-            {
-                ProcessStartInfo start = new ProcessStartInfo();
-                start.FileName = @"C:\KiwoomHero4\Bin\NKStarter.exe";
-                start.UseShellExecute = true;
-                start.Verb = "runas";
-                try
-                {
-                    Process.Start(start);
-                    while (wnd == IntPtr.Zero) { wnd = FindWindow(null, "영웅문4 Login"); Thread.Sleep(1000); }
-                }
-                catch (Exception ex)
-                {
+            //if (FindWindow(null, "영웅문4 Login") == IntPtr.Zero && FindWindow(null, "영웅문4") == IntPtr.Zero)
+            //{
+            //    ProcessStartInfo start = new ProcessStartInfo();
+            //    start.FileName = @"C:\KiwoomHero4\Bin\NKStarter.exe";
+            //    start.UseShellExecute = true;
+            //    start.Verb = "runas";
+            //    try
+            //    {
+            //        Process.Start(start);
+            //        while (wnd == IntPtr.Zero) { wnd = FindWindow(null, "영웅문4 Login"); Thread.Sleep(1000); }
+            //    }
+            //    catch (Exception ex)
+            //    {
 
-                }
-            }
-            wnd = FindWindow(null, "영웅문4 Login");
-            wnd = FindWindow(null, "영웅문4") == IntPtr.Zero ? wnd : FindWindow(null, "영웅문4");
-            SetWindowPos(wnd, IntPtr.Zero, 0, 0, 1200, 800, 0);
-            button1.Visible = true;
-            ewfaklwje();
-            SetForegroundWindow(wnd);
-            SetFocus(wnd);
-            clearscreen();
-            click(new Point(57, 88));
-            typeString("0345", true);
-            Thread.Sleep(500);
-            Rectangle rect;
-            findAndClick(out rect, new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\account.png"));
-            Thread.Sleep(100);
-            ocr(new Vector2(rect.X + rect.Width + 5, rect.Y + 3), new Vector2(95, 13));
-            Bitmap thing = new Bitmap(bitmap.Width + zero_placeholder.Width, bitmap.Height + 10);
-            Graphics.FromImage(thing).DrawImage(bitmap, new Point(0, 0));
-            Graphics.FromImage(thing).DrawImage(zero_placeholder, new Point(bitmap.Width, 2));
-            Pix pix = PixConverter.ToPix(bitmap);
-            //bitmap = thing;
+            //    }
+            //}
+            //wnd = FindWindow(null, "영웅문4 Login");
+            //wnd = FindWindow(null, "영웅문4") == IntPtr.Zero ? wnd : FindWindow(null, "영웅문4");
+            //SetWindowPos(wnd, IntPtr.Zero, 0, 0, 1200, 800, 0);
+            //button1.Visible = true;
+            //ewfaklwje();
+            //SetForegroundWindow(wnd);
+            //SetFocus(wnd);
+            //clearscreen();
+            //click(new Point(57, 88));
+            //typeString("0345", true);
+            //Thread.Sleep(500);
+            //Rectangle rect;
+            //findAndClick(out rect, new Bitmap(@"C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\images\kiwoom\account.png"));
+            //Thread.Sleep(100);
+            //ocr(new Vector2(rect.X + rect.Width + 5, rect.Y + 3), new Vector2(95, 13));
+            //Bitmap thing = new Bitmap(bitmap.Width + zero_placeholder.Width, bitmap.Height + 10);
+            //Graphics.FromImage(thing).DrawImage(bitmap, new Point(0, 0));
+            //Graphics.FromImage(thing).DrawImage(zero_placeholder, new Point(bitmap.Width, 2));
+            //Pix pix = PixConverter.ToPix(bitmap);
+            ////bitmap = thing;
 
-            var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.TesseractOnly);
-            engine.SetVariable("tessedit_char_whitelist", "0123456789");
-            engine.DefaultPageSegMode = PageSegMode.SingleLine;
-            var result = engine.Process(pix);
-            Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
-            BeginInvoke(new Action(() =>
-            {
-                label2.Text = result.GetText();
-                result.Dispose();
-                pix.Dispose();
-                engine.Dispose();
-            }));
+            //var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.TesseractOnly);
+            //engine.SetVariable("tessedit_char_whitelist", "0123456789");
+            //engine.DefaultPageSegMode = PageSegMode.SingleLine;
+            //var result = engine.Process(pix);
+            //Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+            //BeginInvoke(new Action(() =>
+            //{
+            //    label2.Text = result.GetText();
+            //    result.Dispose();
+            //    pix.Dispose();
+            //    engine.Dispose();
+            //}));
 
-            bitmap.Save("C:\\Users\\sw_303\\Desktop\\fewaf.png");
+            //bitmap.Save("C:\\Users\\sw_303\\Desktop\\fewaf.png");
             //new Thread(a).Start();
         }
 
@@ -100,7 +101,7 @@ namespace ohmygod
 
         
 
-        private void findAndClick(out Rectangle rt, Bitmap image, Point offset = new Point())
+        /*private void findAndClick(out Rectangle rt, Bitmap image, Point offset = new Point())
         {
             RECT rect;
             Rectangle rectangle;
@@ -358,60 +359,61 @@ namespace ohmygod
             this.bitmap = screen;
             return screen;
         }
+        */
         private async void button1_Click(object sender, EventArgs e)
         {
-            await Task.Run(() =>
-            {
-                clearscreen();
-                click(buttonBounds[2]);
-                Thread.Sleep(1000);
-                Pix pix = PixConverter.ToPix(ocr(new Vector2(14, 565), new Vector2(700, 20)));
-
-                var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
-                var result = engine.Process(pix);
-
-                if (result.GetText().Contains("[999999]"))
-                {
-                    MessageBox.Show("장이 열리지 않은 날입니다.");
-                    return;
-                }
-                SetSellOffer("039490", 1, 200000);
-            });
-            //await Task.Run(() => { main(); });
-
-            //TesseractEngine t = new TesseractEngine("./tessdata", "kor", EngineMode.Default);
-            //t.SetVariable("tessedit_char_whitelist", "-01234567890");
-            //Console.WriteLine(t.Process(Pix.LoadFromFile("C:\\Users\\sw_303\\Desktop\\cap.png"), PageSegMode.SingleBlock).GetText());
-            //button1.Enabled = false;
-            //run();
-            //timer1.Start();
-
-
-            //if (GetWindowRect(wnd, out rect))
+            //await Task.Run(() =>
             //{
-            //    int windowWidth = rect.Right - rect.Left;
-            //    int windowHeight = rect.Bottom - rect.Top;
+            //    clearscreen();
+            //    click(buttonBounds[2]);
+            //    Thread.Sleep(1000);
+            //    Pix pix = PixConverter.ToPix(ocr(new Vector2(14, 565), new Vector2(700, 20)));
 
-            //    Console.WriteLine($"Window Width: {windowWidth}, Height: {windowHeight}");
-            //    double clientXPercent = 0.67;
-            //    double clientYPercent = 0.79;
+            //    var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+            //    var result = engine.Process(pix);
 
-            //    int clientX = rect.Left + (int)(clientXPercent * (windowWidth));
-            //    int clientY = rect.Top + (int)(clientYPercent * (windowHeight));
+            //    if (result.GetText().Contains("[999999]"))
+            //    {
+            //        MessageBox.Show("장이 열리지 않은 날입니다.");
+            //        return;
+            //    }
+            //    SetSellOffer("039490", 1, 200000);
+            //});
+            ////await Task.Run(() => { main(); });
 
-            //    Point point = new Point { X = clientX, Y = clientY };
-            //    //ClientToScreen(wnd, ref point);
-            //    SetCursorPos(point.X, point.Y);
-            //    Console.WriteLine($"Window Width: {point.X}, Height: {point.Y}");
-            //    //SetForegroundWindow(wnd);
-            //    //SetFocus(wnd);
+            ////TesseractEngine t = new TesseractEngine("./tessdata", "kor", EngineMode.Default);
+            ////t.SetVariable("tessedit_char_whitelist", "-01234567890");
+            ////Console.WriteLine(t.Process(Pix.LoadFromFile("C:\\Users\\sw_303\\Desktop\\cap.png"), PageSegMode.SingleBlock).GetText());
+            ////button1.Enabled = false;
+            ////run();
+            ////timer1.Start();
 
-            //    //mouseclick();
-            //    mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)point.X, (uint)point.Y, 0, 0);
-            //    mouse_event(MOUSEEVENTF_LEFTUP, (uint)point.X, (uint)point.Y, 0, 0);
-            //}
+
+            ////if (GetWindowRect(wnd, out rect))
+            ////{
+            ////    int windowWidth = rect.Right - rect.Left;
+            ////    int windowHeight = rect.Bottom - rect.Top;
+
+            ////    Console.WriteLine($"Window Width: {windowWidth}, Height: {windowHeight}");
+            ////    double clientXPercent = 0.67;
+            ////    double clientYPercent = 0.79;
+
+            ////    int clientX = rect.Left + (int)(clientXPercent * (windowWidth));
+            ////    int clientY = rect.Top + (int)(clientYPercent * (windowHeight));
+
+            ////    Point point = new Point { X = clientX, Y = clientY };
+            ////    //ClientToScreen(wnd, ref point);
+            ////    SetCursorPos(point.X, point.Y);
+            ////    Console.WriteLine($"Window Width: {point.X}, Height: {point.Y}");
+            ////    //SetForegroundWindow(wnd);
+            ////    //SetFocus(wnd);
+
+            ////    //mouseclick();
+            ////    mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)point.X, (uint)point.Y, 0, 0);
+            ////    mouse_event(MOUSEEVENTF_LEFTUP, (uint)point.X, (uint)point.Y, 0, 0);
+            ////}
         }
-
+        
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -423,23 +425,23 @@ namespace ohmygod
 
         private void button2_Click(object sender, EventArgs e)
         {
-            login(0, "690201");
+            //login(0, "690201");
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(bitmap, new Point(0, 0));
+            //e.Graphics.DrawImage(bitmap, new Point(0, 0));
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            await Task.Run(() =>
-            {
-                clearscreen();
-                click(buttonBounds[2]);
-                Thread.Sleep(1000);
-                SetBuyOrder("039490", 1, 102314);
-            });
+            //await Task.Run(() =>
+            //{
+            //    clearscreen();
+            //    click(buttonBounds[2]);
+            //    Thread.Sleep(1000);
+            //    SetBuyOrder("039490", 1, 102314);
+            //});
         }
     }
 }
