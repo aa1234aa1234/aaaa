@@ -107,3 +107,7 @@ C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\
 C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win-x64\native\krb5_64.dll
 C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
 C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win-x64\native\OpenCvSharpExtern.dll
+C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win-x64\native\opencv_videoio_ffmpeg4110_64.dll
+C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win-x86\native\OpenCvSharpExtern.dll
+C:\Users\sw_303\Desktop\수강생107\김정우\ohmygod\bin\Debug\net8.0-windows\runtimes\win-x86\native\opencv_videoio_ffmpeg4110.dll

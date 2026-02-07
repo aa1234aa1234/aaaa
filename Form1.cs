@@ -3,6 +3,7 @@ using FlaUI.Core.Input;
 using FlaUI.Core.WindowsAPI;
 using FlaUI.UIA3;
 using Interop.UIAutomationClient;
+using OpenCvSharp;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -20,7 +21,6 @@ namespace ohmygod
         int imageIdx = 0;
         List<Bitmap> images = new List<Bitmap>();
         List<Bitmap> buttons = new List<Bitmap>();
-        List<Point> buttonBounds = new List<Point>();
         Bitmap bitmap, zero_placeholder;
 
         App app = new App();
