@@ -7,40 +7,44 @@
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:tradingcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\imagefinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:imagefinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\windoweventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:windoweventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\eventlisteners\\startuplistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:eventlisteners\\startuplistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\tradingengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:tradingengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\eventlisteners\\buyorderlistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:eventlisteners\\buyorderlistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\eventlisteners\\startuplistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:eventlisteners\\startuplistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\windoweventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:windoweventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\eventsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:eventsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\mysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:mysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\detector\\windowhandledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:detector\\windowhandledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\eventlisteners\\buyorderlistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:eventlisteners\\buyorderlistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\imagefinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:imagefinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\eventsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:eventsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\detector\\idetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\mysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:mysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ohmygod.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -85,7 +85,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -97,7 +97,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "IDetector.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Detector\\IDetector.cs",
               "RelativeDocumentMoniker": "Detector\\IDetector.cs",
@@ -109,19 +109,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "WindowHandleDetector.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Detector\\WindowHandleDetector.cs",
               "RelativeDocumentMoniker": "Detector\\WindowHandleDetector.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Detector\\WindowHandleDetector.cs",
               "RelativeToolTip": "Detector\\WindowHandleDetector.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAA3wA0AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAA3wBMAAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-31T07:35:09.138Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "BuyOrderListener.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\EventListeners\\BuyOrderListener.cs",
               "RelativeDocumentMoniker": "EventListeners\\BuyOrderListener.cs",
@@ -133,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "ImageFinder.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ImageFinder.cs",
               "RelativeDocumentMoniker": "ImageFinder.cs",
@@ -141,8 +141,7 @@
               "RelativeToolTip": "ImageFinder.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAuwHgAAAC6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T08:15:18.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T08:15:18.146Z"
             },
             {
               "$type": "Document",
@@ -150,22 +149,22 @@
               "Title": "TradingContext.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingContext.cs",
               "RelativeDocumentMoniker": "TradingContext.cs",
-              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingContext.cs*",
-              "RelativeToolTip": "TradingContext.cs*",
-              "ViewState": "AgIAAGwAAAAAAAAAAAA6wHYAAAAXAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingContext.cs",
+              "RelativeToolTip": "TradingContext.cs",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAwwI8AAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T07:40:18.884Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 5,
               "Title": "MySql.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\MySql.cs",
               "RelativeDocumentMoniker": "MySql.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\MySql.cs",
               "RelativeToolTip": "MySql.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAOBpwBgAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T07:32:57.812Z"
             },
@@ -183,19 +182,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "StartUpListener.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\EventListeners\\StartUpListener.cs",
               "RelativeDocumentMoniker": "EventListeners\\StartUpListener.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\EventListeners\\StartUpListener.cs",
               "RelativeToolTip": "EventListeners\\StartUpListener.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAgwBIAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-17T09:08:27.667Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "EventSystem.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\EventSystem.cs",
               "RelativeDocumentMoniker": "EventSystem.cs",
@@ -207,7 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "App.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\App.cs",
               "RelativeDocumentMoniker": "App.cs",
@@ -219,32 +218,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "TradingEngine.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingEngine.cs",
               "RelativeDocumentMoniker": "TradingEngine.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingEngine.cs",
               "RelativeToolTip": "TradingEngine.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAiwDQAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-17T05:59:24.596Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAwwIgAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEoAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-06T08:38:37.764Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "Form1.Designer.cs",
@@ -292,7 +291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "Form1.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
