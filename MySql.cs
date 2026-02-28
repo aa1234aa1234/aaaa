@@ -26,11 +26,17 @@ namespace ohmygod
         public DataRow PollLatestRequest()
         {
             DataSet ds = new DataSet();
-            string sql = "SELECT * FROM test ORDER BY idx DESC;";
+            string sql = "SELECT * FROM stock.order ORDER BY idx DESC;";
             MySqlDataAdapter adpt = new(sql, conn);
-            adpt.Fill(ds, "test");
+            adpt.Fill(ds, "order");
             if (ds.Tables[0].Rows.Count == 0) return null;
             return ds.Tables[0].Rows[0];
+        }
+
+        public void DeleteAllRows()
+        {
+            MySqlCommand cmd = new MySqlCommand("DELETE FROM stock.order;", conn);
+            cmd.ExecuteNonQuery();
         }
     }
 }

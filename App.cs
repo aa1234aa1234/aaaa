@@ -9,7 +9,6 @@ namespace ohmygod
 {
     internal class App
     {
-        private MySql mysql;
         private TradingEngine engine;
         private StartUpListener StartUpListener;
         private BuyOrderListener BuyOrderListener;
@@ -18,8 +17,6 @@ namespace ohmygod
             engine = new();
             StartUpListener = new("STARTUP", engine);
             BuyOrderListener = new("SETBUYORDER", engine);
-            
-            mysql = new();
         }
 
         public void run(Form1 form)

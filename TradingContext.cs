@@ -45,14 +45,22 @@ namespace ohmygod
         public void SetBuyOrder(string stockcode, int size, int price)
         {
             ClearScreen();
-            switch(tradingSystem)
+            windowController.Click(new Point(110, 36));
+            Thread.Sleep(100);
+            Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
+            if (a != Rectangle.Empty)
+            {
+                windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
+            }
+            Thread.Sleep(500);
+            switch (tradingSystem)
             {
                 case TradingSystem.KIWOOM:
                     Point[] offset = { new Point(80, 20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
                     string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
                     Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy1.png");
                     Rectangle rect;
-                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/buy.png", screenBitmap);
+                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/eee.png", screenBitmap);
                     if (rect == Rectangle.Empty) return;
                     windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
                     for (int i = 0; i < offset.Length; i++)
@@ -71,6 +79,14 @@ namespace ohmygod
         public void SetSellOffer(string stockcode, int size, int price)
         {
             ClearScreen();
+            windowController.Click(new Point(110, 36));
+            Thread.Sleep(100);
+            Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
+            if (a != Rectangle.Empty)
+            {
+                windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
+            }
+            Thread.Sleep(500);
             switch (tradingSystem)
             {
                 case TradingSystem.KIWOOM:
@@ -78,7 +94,7 @@ namespace ohmygod
                     string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
                     Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
                     Rectangle rect;
-                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/buy1.png", screenBitmap);
+                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/eee.png", screenBitmap);
                     if (rect == Rectangle.Empty) return;
                     windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), new Point(70, 0));
                     for (int i = 0; i < offset.Length; i++)
@@ -127,13 +143,19 @@ namespace ohmygod
                 case 1:
                     Rectangle rect;
                     rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/b.png", screenBitmap);
-                    if(rect != Rectangle.Empty)
+                    if (rect != Rectangle.Empty)
                     {
                         rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/e.png", screenBitmap);
                         if (rect != Rectangle.Empty) windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
                         else windowController.typeString(" ");
                     }
-                    else windowController.typeString(" ");
+                    else
+                    {
+                        rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ee.png", screenBitmap);
+                        if (rect != Rectangle.Empty) windowController.Click(new Point(rect.X, rect.Y));
+                        else windowController.Click(new Point(600, 400));
+                            windowController.typeString(" ");
+                    }
                     ClearScreen();
                     List<Rectangle>? a=new();
                     do

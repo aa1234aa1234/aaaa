@@ -13,10 +13,13 @@ namespace ohmygod
     internal class TradingEngine
     {
         private TradingContext tradingContext;
+        private MySql mysql;
         private List<IDetector> detectors = new();
         public TradingEngine() {
+            mysql = new();
             tradingContext = new TradingContext(TradingContext.TradingSystem.KIWOOM);
             detectors.Add(new WindowHandleDetector());
+            detectors.Add(new MySqlDetector(mysql));
         }
 
         public void run(Form1 form)
