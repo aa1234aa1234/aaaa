@@ -39,6 +39,11 @@ namespace ohmygod
             tradingContext.SetBuyOrder(stockcode, size, price);
         }
 
+        public void SetSellOffer(string stockcode, int size, int price)
+        {
+            tradingContext.SetSellOffer(stockcode, size, price);
+        }
+
         public void SetWindowHandle(IntPtr handle)
         {
             tradingContext.SetWindowHandle(handle);

@@ -27,6 +27,7 @@ namespace ohmygod.Detector
                         EventSystem.GetInstance().DispatchEvent(new Event("SETBUYORDER"), row["stock"], (int)row["vol"], (int)row["price"]);
                         break;
                     case "SELL":
+                        EventSystem.GetInstance().DispatchEvent(new Event("SETSELLOFFER"), row["stock"], (int)row["vol"], (int)row["price"]);
                         break;
                 }
                 sql.DeleteAllRows();

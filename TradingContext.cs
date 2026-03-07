@@ -19,6 +19,7 @@ namespace ohmygod
         private TesseractEngine tesseractEngine;
         private TradingSystem tradingSystem;
         private Bitmap screenBitmap;
+        private Dictionary<string, int> stockVolume = new();
         public static string[] windowNames;
         private int window;
         private IntPtr wnd;
@@ -45,23 +46,27 @@ namespace ohmygod
         public void SetBuyOrder(string stockcode, int size, int price)
         {
             ClearScreen();
-            windowController.Click(new Point(110, 36));
-            Thread.Sleep(100);
-            Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
-            if (a != Rectangle.Empty)
-            {
-                windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
-            }
-            Thread.Sleep(500);
+            //windowController.Click(new Point(110, 36));
+            //Thread.Sleep(500);
+            //Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
+            //if (a != Rectangle.Empty)
+            //{
+            //    windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
+            //}
+            OpenWindow("4989");
+            Thread.Sleep(2000);
+            
             switch (tradingSystem)
             {
                 case TradingSystem.KIWOOM:
-                    Point[] offset = { new Point(80, 20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
+                    Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
                     string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
                     Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy1.png");
                     Rectangle rect;
-                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/eee.png", screenBitmap);
+                    rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
                     if (rect == Rectangle.Empty) return;
+                    rect.X -= 150;
+                    rect.Y += 23;
                     windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
                     for (int i = 0; i < offset.Length; i++)
                     {
@@ -70,6 +75,8 @@ namespace ohmygod
                         Thread.Sleep(50);
                     }
                     windowController.Click(new Point(550, 419));
+                    if (!stockVolume.ContainsKey(stockcode)) stockVolume.Add(stockcode, size);
+                    else stockVolume[stockcode] += size;
                     break;
                 case TradingSystem.IMERITZ:
                     break;
@@ -79,23 +86,27 @@ namespace ohmygod
         public void SetSellOffer(string stockcode, int size, int price)
         {
             ClearScreen();
-            windowController.Click(new Point(110, 36));
-            Thread.Sleep(100);
-            Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
-            if (a != Rectangle.Empty)
-            {
-                windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
-            }
-            Thread.Sleep(500);
+            //windowController.Click(new Point(110, 36));
+            //Thread.Sleep(500);
+            //Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
+            //if (a != Rectangle.Empty)
+            //{
+            //    windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
+            //}
+            OpenWindow("4989");
+            Thread.Sleep(2000);
             switch (tradingSystem)
             {
                 case TradingSystem.KIWOOM:
-                    Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
+                    //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
+                    Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
                     string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
                     Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
                     Rectangle rect;
-                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/eee.png", screenBitmap);
+                    rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
                     if (rect == Rectangle.Empty) return;
+                    rect.X -= 150;
+                    rect.Y += 23;
                     windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), new Point(70, 0));
                     for (int i = 0; i < offset.Length; i++)
                     {
@@ -133,6 +144,12 @@ namespace ohmygod
 
         public void SetWindow(int a) { window = a; }
 
+        public void OpenWindow(string windowCode)
+        {
+            windowController.Click(new Point(57, 88));
+            windowController.typeString(windowCode, true);
+        }
+
         public void StartUp(int windowTitle)
         { 
             windowController.Click(new Point(1, 0));
@@ -164,8 +181,7 @@ namespace ohmygod
                         if(a.Count >= 2) Console.WriteLine(a[0] + "\n" + a[1]);
                         Thread.Sleep(50);
                     } while ((a=ImageFinder.FindImage(@"../../../images/kiwoom/d.png", screenBitmap)) != null && a.Count > 1);
-                    windowController.Click(new Point(57, 88));
-                    windowController.typeString("0345", true);
+                    OpenWindow("0345");
                     Thread.Sleep(1000);
                     rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/account.png", screenBitmap);
                     windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));

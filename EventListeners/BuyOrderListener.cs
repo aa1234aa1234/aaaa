@@ -19,4 +19,18 @@ namespace ohmygod.EventListeners
             engine.SetBuyOrder(args[0].ToString(), (int)args[1], (int)args[2]);
         }
     }
+
+    class SellOfferListener : EventListener
+    {
+        private TradingEngine engine;
+        public SellOfferListener(string eventId, TradingEngine engine) : base(eventId)
+        {
+            this.engine = engine;
+        }
+
+        public override void OnEvent(params object[] args)
+        {
+            engine.SetSellOffer(args[0].ToString(), (int)args[1], (int)args[2]);
+        }
+    }
 }
