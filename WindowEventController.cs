@@ -1,6 +1,8 @@
 ﻿using FlaUI.Core.Input;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -123,6 +125,171 @@ namespace ohmygod
         internal const UInt32 KEYEVENTF_KEYUP = 0x0002;
         internal const UInt32 KEYEVENTF_UNICODE = 0x0004;
         internal const UInt32 KEYEVENTF_SCANCODE = 0x0008;
+
+        public delegate bool EnumPWindowProc(IntPtr hWnd, IntPtr parameters);
+        public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr window, EnumPWindowProc callback, IntPtr i);
+
+        [DllImport("user32.dll")]
+        static extern bool EnumWindows(EnumPWindowProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        [DllImport("user32.dll")]
+        static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("kernel32.dll")]
+        static extern uint GetCurrentThreadId();
+
+
+        [DllImport("user32.dll")]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
+
+        [DllImport("kernel32.dll")]
+        static extern int GetProcessId(IntPtr handle);
+
+        const int WH_CBT = 5;
+        const int HCBT_CREATEWND = 3;
+
+        const int WM_COMMAND = 0x0111;
+        const int IDOK = 1;
+
+        private static IntPtr hook;
+        private static HookProc proc;
+
+        public static void InstallMessageBoxAutoCloser()
+        {
+            proc = HookCallback;
+            hook = SetWindowsHookEx(WH_CBT, proc, IntPtr.Zero, GetCurrentThreadId());
+        }
+
+        public static void RemoveHook()
+        {
+            if (hook != IntPtr.Zero)
+                UnhookWindowsHookEx(hook);
+        }
+
+        public static int GetPid(IntPtr handle) { return GetProcessId(handle); }
+
+        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            if (nCode == HCBT_CREATEWND)
+            {
+                StringBuilder className = new StringBuilder(256);
+                GetClassName(wParam, className, className.Capacity);
+
+                if (className.ToString() == "#32770")
+                {
+                    SendMessage(wParam, WM_COMMAND, (IntPtr)IDOK, IntPtr.Zero);
+                }
+            }
+
+            return CallNextHookEx(hook, nCode, wParam, lParam);
+        }
+
+        private static bool EnumMessageBox(IntPtr handle, IntPtr pointer)
+        {
+            StringBuilder className = new StringBuilder(256);
+            GetClassName(handle, className, className.Capacity);
+
+            if(className.ToString() == "#32770")
+            {
+                GCHandle gch = GCHandle.FromIntPtr(pointer);
+                List<IntPtr> list = gch.Target as List<IntPtr>;
+
+                list.Add(handle);
+            }
+            return true;
+        }
+
+        public static void CloseMessageBoxes(Process process)
+        {
+            EnumWindows((hWnd, lParam) =>
+            {
+                GetWindowThreadProcessId(hWnd, out uint pid);
+
+                if (pid != process.Id)
+                    return true;
+
+                StringBuilder className = new StringBuilder(256);
+                GetClassName(hWnd, className, className.Capacity);
+
+                if (className.ToString() == "#32770")
+                {
+                    SendMessage(hWnd, WM_COMMAND, (IntPtr)IDOK, IntPtr.Zero);
+                }
+
+                return true;
+
+            }, IntPtr.Zero);
+        }
+
+        public static List<IntPtr> GetMessageBoxes(IntPtr handle)
+        {
+            List<IntPtr> result = new();
+
+            GCHandle listHandle = GCHandle.Alloc(result);
+            try
+            {
+                EnumWindows(EnumMessageBox, GCHandle.ToIntPtr(listHandle));
+            }
+            finally
+            {
+                listHandle.Free();
+            }
+
+            return result;
+        }
+
+        private static List<IntPtr> GetChildWindows(IntPtr parent, bool addParent = true)
+        {
+            List<IntPtr> result = new();
+
+            GCHandle listHandle = GCHandle.Alloc(result);
+            try
+            {
+                EnumPWindowProc childProc = new EnumPWindowProc(EnumWindow);
+                EnumChildWindows(parent, childProc, GCHandle.ToIntPtr(listHandle));
+            }
+            finally
+            {
+                if (listHandle.IsAllocated) listHandle.Free();
+            }
+
+            if (addParent) result.Add(parent);
+
+            return result;
+        }
+
+        private static bool EnumWindow(IntPtr handle, IntPtr pointer)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(pointer);
+            List<IntPtr> list = gch.Target as List<IntPtr>;
+            if(list == null)
+            {
+                throw new InvalidCastException();
+            }
+            list.Add(handle);
+            return true;
+        }
+
+        public static List<IntPtr> GetChildEnums(IntPtr parent)
+        {
+            return GetChildWindows(parent, false);
+        }
 
         IntPtr wnd = IntPtr.Zero;
 

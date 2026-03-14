@@ -3,6 +3,7 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -26,12 +27,17 @@ namespace ohmygod
         {
             System.Windows.Forms.Timer timer = new();
             timer.Interval = 1000;
+
             timer.Tick += (sender, e) =>
             {
                 foreach (var p in detectors) 
                     p.Update();
+
+                var a = Process.GetProcessById(WindowEventController.GetPid(tradingContext.GetWindowHandle()));
+                WindowEventController.CloseMessageBoxes(a);
             };
             timer.Start();
+
         }
 
         public void SetBuyOrder(string stockcode, int size, int price)

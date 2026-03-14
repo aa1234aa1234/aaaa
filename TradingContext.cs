@@ -45,7 +45,7 @@ namespace ohmygod
 
         public void SetBuyOrder(string stockcode, int size, int price)
         {
-            ClearScreen();
+            //ClearScreen();
             //windowController.Click(new Point(110, 36));
             //Thread.Sleep(500);
             //Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
@@ -85,7 +85,7 @@ namespace ohmygod
 
         public void SetSellOffer(string stockcode, int size, int price)
         {
-            ClearScreen();
+            //ClearScreen();
             //windowController.Click(new Point(110, 36));
             //Thread.Sleep(500);
             //Rectangle a = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ae.png", screenBitmap);
@@ -100,7 +100,7 @@ namespace ohmygod
                 case TradingSystem.KIWOOM:
                     //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
                     Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
-                    string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
+                    string[] input = { "690201", stockcode, stockVolume[stockcode].ToString(), price.ToString() };
                     Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
                     Rectangle rect;
                     rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
