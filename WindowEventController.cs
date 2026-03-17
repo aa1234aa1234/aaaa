@@ -343,6 +343,7 @@ namespace ohmygod
 
         public void typeString(string str, bool pressenter = false)
         {
+            if (str == "#VK_ESCAPE#") { PressKey(0x1B); return; }
             foreach (char a in str)
             {
                 Console.WriteLine(a);

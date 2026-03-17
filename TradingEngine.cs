@@ -30,11 +30,14 @@ namespace ohmygod
 
             timer.Tick += (sender, e) =>
             {
+                
+
                 foreach (var p in detectors) 
                     p.Update();
-
-                var a = Process.GetProcessById(WindowEventController.GetPid(tradingContext.GetWindowHandle()));
-                WindowEventController.CloseMessageBoxes(a);
+                tradingContext.CheckBuyOrder();
+                tradingContext.CheckSellOffers();
+                //var a = Process.GetProcessById(WindowEventController.GetPid(tradingContext.GetWindowHandle()));
+                //WindowEventController.CloseMessageBoxes(a);
             };
             timer.Start();
 

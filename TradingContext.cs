@@ -1,6 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Tesseract;
@@ -20,9 +22,20 @@ namespace ohmygod
         private TradingSystem tradingSystem;
         private Bitmap screenBitmap;
         private Dictionary<string, int> stockVolume = new();
+        private Stack<Order> buyOrders = new(), sellOffers = new();
+        private Stack<string> buyOrderID = new(), sellOfferID = new();
         public static string[] windowNames;
         private int window;
         private IntPtr wnd;
+
+        struct Order
+        {
+            string stockcode;
+            int size;
+            int price;
+
+            Order(string stockcode, int size, int price) { this.stockcode = stockcode; this.size = size; this.price = price; }
+        }
 
         public TradingContext(TradingSystem tradingsystem) {
             windowController = new();
@@ -43,6 +56,27 @@ namespace ohmygod
             tesseractEngine.Dispose();
         }
 
+
+        private void BuyOrder(string stockcode, int size, int price)
+        {
+            Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
+            string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
+            Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy1.png");
+            Rectangle rect;
+            rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
+            if (rect == Rectangle.Empty) return;
+            rect.X -= 150;
+            rect.Y += 23;
+            windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
+            for (int i = 0; i < offset.Length; i++)
+            {
+                if (i < input.Length && input[i] == "-1") continue;
+                windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), offset[i]);
+                if (i < input.Length) windowController.typeString(input[i]);
+                Thread.Sleep(50);
+            }
+            windowController.Click(new Point(550, 419));
+        }
         public void SetBuyOrder(string stockcode, int size, int price)
         {
             //ClearScreen();
@@ -59,28 +93,55 @@ namespace ohmygod
             switch (tradingSystem)
             {
                 case TradingSystem.KIWOOM:
-                    Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
-                    string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
-                    Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy1.png");
-                    Rectangle rect;
-                    rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
-                    if (rect == Rectangle.Empty) return;
-                    rect.X -= 150;
-                    rect.Y += 23;
-                    windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
-                    for (int i = 0; i < offset.Length; i++)
-                    {
-                        windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), offset[i]);
-                        if (i < input.Length) windowController.typeString(input[i]);
-                        Thread.Sleep(50);
-                    }
-                    windowController.Click(new Point(550, 419));
+                    //Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
+                    //string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
+                    //Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy1.png");
+                    //Rectangle rect;
+                    //rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
+                    //if (rect == Rectangle.Empty) return;
+                    //rect.X -= 150;
+                    //rect.Y += 23;
+                    //windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
+                    //for (int i = 0; i < offset.Length; i++)
+                    //{
+                    //    if (i < input.Length && input[i] == "-1") continue;
+                    //    windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), offset[i]);
+                    //    if (i < input.Length) windowController.typeString(input[i]);
+                    //    Thread.Sleep(50);
+                    //}
+                    //windowController.Click(new Point(550, 419));
+                    BuyOrder(stockcode, size, price);
                     if (!stockVolume.ContainsKey(stockcode)) stockVolume.Add(stockcode, size);
                     else stockVolume[stockcode] += size;
+                    Thread.Sleep(100);
+                    windowController.typeString("#VK_ESCAPE#");
+                    buyOrders.Push(new Order(stockcode,size,price));
                     break;
                 case TradingSystem.IMERITZ:
                     break;
             }
+        }
+
+        private void SellOffer(string stockcode, int size, int price)
+        {
+            //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
+            Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
+            string[] input = { "690201", stockcode, stockVolume[stockcode].ToString(), price.ToString() };
+            Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
+            Rectangle rect;
+            rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
+            if (rect == Rectangle.Empty) return;
+            rect.X -= 150;
+            rect.Y += 23;
+            windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), new Point(70, 0));
+            for (int i = 0; i < offset.Length; i++)
+            {
+                if (i < input.Length && input[i] == "-1") continue;
+                windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), offset[i]);
+                if (i < input.Length) windowController.typeString(input[i]);
+                Thread.Sleep(50);
+            }
+            windowController.Click(new Point(550, 419));
         }
 
         public void SetSellOffer(string stockcode, int size, int price)
@@ -99,22 +160,26 @@ namespace ohmygod
             {
                 case TradingSystem.KIWOOM:
                     //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
-                    Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
-                    string[] input = { "690201", stockcode, stockVolume[stockcode].ToString(), price.ToString() };
-                    Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
-                    Rectangle rect;
-                    rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
-                    if (rect == Rectangle.Empty) return;
-                    rect.X -= 150;
-                    rect.Y += 23;
-                    windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), new Point(70, 0));
-                    for (int i = 0; i < offset.Length; i++)
-                    {
-                        windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), offset[i]);
-                        if (i < input.Length) windowController.typeString(input[i]);
-                        Thread.Sleep(50);
-                    }
-                    windowController.Click(new Point(550, 419));
+                    //Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
+                    //string[] input = { "690201", stockcode, stockVolume[stockcode].ToString(), price.ToString() };
+                    //Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
+                    //Rectangle rect;
+                    //rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
+                    //if (rect == Rectangle.Empty) return;
+                    //rect.X -= 150;
+                    //rect.Y += 23;
+                    //windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), new Point(70, 0));
+                    //for (int i = 0; i < offset.Length; i++)
+                    //{
+                    //    windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), offset[i]);
+                    //    if (i < input.Length) windowController.typeString(input[i]);
+                    //    Thread.Sleep(50);
+                    //}
+                    //windowController.Click(new Point(550, 419));
+                    SellOffer(stockcode, size, price);
+                    Thread.Sleep(100);
+                    windowController.typeString("#VK_ESCAPE#");
+                    sellOffers.Push(new Order(stockcode, size, price));
                     break;
                 case TradingSystem.IMERITZ:
                     break;
@@ -150,6 +215,218 @@ namespace ohmygod
             windowController.typeString(windowCode, true);
         }
 
+
+        private Bitmap ocr(Vector2 start, Vector2 size)
+        {
+            Vector2 screenSize = size;
+            Bitmap screen = new Bitmap((int)size.X, (int)size.Y);
+            using (Graphics graphic = Graphics.FromImage(screen))
+            {
+                graphic.CopyFromScreen(new Point((int)start.X, (int)start.Y), Point.Empty, screen.Size);
+            }
+            return screen;
+        }
+
+        private bool flag = false;
+
+        private void CheckAccount(Rectangle rect)
+        {
+            //rect.X += 2;
+            //rect.Y += 8;
+            //var orders = new Stack<string>();
+            //var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+            //try
+            //{
+            //    var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
+            //    for (int i = 0; i < a - 1; i++)
+            //    {
+            //        Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
+            //        OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
+            //        OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
+            //        Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+            //        var result = engine.Process(pix);
+            //        Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+            //        orders.Push(result.GetText());
+
+            //        result.Dispose();
+            //        pix.Dispose();
+            //        rect.Y += 18;
+            //    }
+            //}
+        }
+
+        public void CheckBuyOrder()
+        {
+            Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
+            if (rect != Rectangle.Empty)
+            {
+                rect.X -= 41;
+                rect.Y += 116;
+                var orders = new Stack<string>();
+                var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+                try
+                {
+                    var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
+                    for (int i = 0; i < a - 1; i++)
+                    {
+                        Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
+                        OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
+                        OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
+                        Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+                        var result = engine.Process(pix);
+                        Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+                        orders.Push(result.GetText());
+
+                        result.Dispose();
+                        pix.Dispose();
+                        rect.Y += 18;
+                    }
+                    engine.Dispose();
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+                
+                if(orders.Count == 0 && buyOrders.Count != 0)
+                {
+                    List<int> idx = new();
+                    for (int i = buyOrderID.Count - 1; i >= 0; i--)
+                    {
+                        idx.Add(i);
+                    }
+                    if (idx.Count == 0) idx.Add(0);
+                    OpenWindow("4989");
+                    Thread.Sleep(2000);
+                    var buyorders = buyOrders.ToList();
+                    foreach (var p in idx)
+                    {
+                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
+                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
+                        buyorders.RemoveAt(p);
+                        Thread.Sleep(100);
+                    }
+                    windowController.typeString("#VK_ESCAPE#");
+                    return;
+                }
+                if (buyOrderID.Count == 0) { buyOrderID.Clear(); buyOrderID = orders; }
+                
+                else
+                {
+                    List<int> idx = new();
+                    for (int i = buyOrderID.Count - 1; i>=0; i--)
+                    {
+                        if (!orders.Contains(buyOrderID.ToList()[i]))
+                        {
+                            idx.Add(i);
+                        }
+                    }
+                    buyOrderID = orders;
+                    if (idx.Count == 0) return;
+                    OpenWindow("4989");
+                    Thread.Sleep(2000);
+                    var buyorders = buyOrders.ToList();
+                    foreach (var p in idx)
+                    {
+                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
+                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
+                        buyorders.RemoveAt(p);
+                        Thread.Sleep(100);
+                    }
+                    windowController.typeString("#VK_ESCAPE#");
+                    
+
+                }
+            }
+            else if(!flag) { OpenWindow("0341"); flag = true; }
+        }
+
+        public void CheckSellOffers()
+        {
+            Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
+            if (rect != Rectangle.Empty)
+            {
+                rect.X -= 41;
+                rect.Y += 116;
+                var orders = new Stack<string>();
+                var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+                try
+                {
+                    var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
+                    for (int i = 0; i < a - 1; i++)
+                    {
+                        Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
+                        OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
+                        OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
+                        Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+                        var result = engine.Process(pix);
+                        Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+                        orders.Push(result.GetText());
+
+                        result.Dispose();
+                        pix.Dispose();
+                        rect.Y += 18;
+                    }
+                    engine.Dispose();
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
+                if (orders.Count == 0 && buyOrders.Count != 0)
+                {
+                    List<int> idx = new();
+                    for (int i = buyOrderID.Count - 1; i >= 0; i--)
+                    {
+                        idx.Add(i);
+                    }
+                    if (idx.Count == 0) idx.Add(0);
+                    OpenWindow("4989");
+                    Thread.Sleep(2000);
+                    var buyorders = buyOrders.ToList();
+                    foreach (var p in idx)
+                    {
+                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
+                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
+                        buyorders.RemoveAt(p);
+                        Thread.Sleep(100);
+                    }
+                    windowController.typeString("#VK_ESCAPE#");
+                    return;
+                }
+                if (buyOrderID.Count == 0) { buyOrderID.Clear(); buyOrderID = orders; }
+
+                else
+                {
+                    List<int> idx = new();
+                    for (int i = buyOrderID.Count - 1; i >= 0; i--)
+                    {
+                        if (!orders.Contains(buyOrderID.ToList()[i]))
+                        {
+                            idx.Add(i);
+                        }
+                    }
+                    buyOrderID = orders;
+                    if (idx.Count == 0) return;
+                    OpenWindow("4989");
+                    Thread.Sleep(2000);
+                    var buyorders = buyOrders.ToList();
+                    foreach (var p in idx)
+                    {
+                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
+                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
+                        buyorders.RemoveAt(p);
+                        Thread.Sleep(100);
+                    }
+                    windowController.typeString("#VK_ESCAPE#");
+
+
+                }
+            }
+            else if (!flag) { OpenWindow("0341"); flag = true; }
+        }
+
         public void StartUp(int windowTitle)
         { 
             windowController.Click(new Point(1, 0));
@@ -164,14 +441,13 @@ namespace ohmygod
                     {
                         rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/e.png", screenBitmap);
                         if (rect != Rectangle.Empty) windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
-                        else windowController.typeString(" ");
+                        else windowController.typeString("#VK_ESCAPE#");
                     }
                     else
                     {
                         rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/ee.png", screenBitmap);
                         if (rect != Rectangle.Empty) windowController.Click(new Point(rect.X, rect.Y));
-                        else windowController.Click(new Point(600, 400));
-                            windowController.typeString(" ");
+                        else windowController.typeString("#VK_ESCAPE#");
                     }
                     ClearScreen();
                     List<Rectangle>? a=new();
@@ -185,6 +461,7 @@ namespace ohmygod
                     Thread.Sleep(1000);
                     rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/account.png", screenBitmap);
                     windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
+                    windowController.typeString("#VK_ESCAPE#");
                     break;
             }
         }
