@@ -16,7 +16,7 @@ namespace ohmygod.EventListeners
 
         public override void OnEvent(params object[] args)
         {
-            engine.SetBuyOrder(args[0].ToString(), (int)args[1], (int)args[2]);
+            engine.SetBuyOrder(args[0].ToString(), (int)args[1], (int)args[2], (int)args[3], (int)args[4]);
         }
     }
 

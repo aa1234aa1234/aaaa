@@ -24,13 +24,13 @@ namespace ohmygod.Detector
                 switch(row["type"].ToString())
                 {
                     case "BUY":
-                        EventSystem.GetInstance().DispatchEvent(new Event("SETBUYORDER"), row["stock"], (int)row["vol"], (int)row["price"]);
+                        EventSystem.GetInstance().DispatchEvent(new Event("SETBUYORDER"), row["stock"], (int)row["vol"], (int)row["price"], (int)row["resell_price"], (int)row["idx"]);
                         break;
                     case "SELL":
                         EventSystem.GetInstance().DispatchEvent(new Event("SETSELLOFFER"), row["stock"], (int)row["vol"], (int)row["price"]);
                         break;
                 }
-                sql.DeleteAllRows();
+                //sql.DeleteAllRows();
             }
         }
     }

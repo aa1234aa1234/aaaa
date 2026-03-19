@@ -14,13 +14,11 @@ namespace ohmygod
     internal class TradingEngine
     {
         private TradingContext tradingContext;
-        private MySql mysql;
         private List<IDetector> detectors = new();
         public TradingEngine() {
-            mysql = new();
             tradingContext = new TradingContext(TradingContext.TradingSystem.KIWOOM);
             detectors.Add(new WindowHandleDetector());
-            detectors.Add(new MySqlDetector(mysql));
+            detectors.Add(new MySqlDetector(MySql.GetInstance()));
         }
 
         public void run(Form1 form)
@@ -43,14 +41,14 @@ namespace ohmygod
 
         }
 
-        public void SetBuyOrder(string stockcode, int size, int price)
+        public void SetBuyOrder(string stockcode, int size, int price, int resellprice, int idx)
         {
-            tradingContext.SetBuyOrder(stockcode, size, price);
+            tradingContext.SetBuyOrder(stockcode, size, price, resellprice,idx);
         }
 
         public void SetSellOffer(string stockcode, int size, int price)
         {
-            tradingContext.SetSellOffer(stockcode, size, price);
+            tradingContext.SetSellOffer(new Order(stockcode,size,price));
         }
 
         public void SetWindowHandle(IntPtr handle)

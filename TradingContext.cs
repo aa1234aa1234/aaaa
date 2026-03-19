@@ -28,14 +28,7 @@ namespace ohmygod
         private int window;
         private IntPtr wnd;
 
-        struct Order
-        {
-            string stockcode;
-            int size;
-            int price;
-
-            Order(string stockcode, int size, int price) { this.stockcode = stockcode; this.size = size; this.price = price; }
-        }
+        
 
         public TradingContext(TradingSystem tradingsystem) {
             windowController = new();
@@ -76,8 +69,9 @@ namespace ohmygod
                 Thread.Sleep(50);
             }
             windowController.Click(new Point(550, 419));
+            
         }
-        public void SetBuyOrder(string stockcode, int size, int price)
+        public void SetBuyOrder(string stockcode, int size, int price, int resellprice = -1, int idx = -1)
         {
             //ClearScreen();
             //windowController.Click(new Point(110, 36));
@@ -111,11 +105,12 @@ namespace ohmygod
                     //}
                     //windowController.Click(new Point(550, 419));
                     BuyOrder(stockcode, size, price);
+                    MySql.GetInstance().UpdateRow(idx, "bought", 1);
                     if (!stockVolume.ContainsKey(stockcode)) stockVolume.Add(stockcode, size);
                     else stockVolume[stockcode] += size;
                     Thread.Sleep(100);
                     windowController.typeString("#VK_ESCAPE#");
-                    buyOrders.Push(new Order(stockcode,size,price));
+                    buyOrders.Push(new Order(stockcode,size,price,resellprice));
                     break;
                 case TradingSystem.IMERITZ:
                     break;
@@ -126,7 +121,7 @@ namespace ohmygod
         {
             //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
             Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
-            string[] input = { "690201", stockcode, stockVolume[stockcode].ToString(), price.ToString() };
+            string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
             Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy.png");
             Rectangle rect;
             rect = ImageFinder.FindImage(@"../../../images/kiwoom/e3.png", screenBitmap).MinBy(p => p.X);
@@ -144,7 +139,7 @@ namespace ohmygod
             windowController.Click(new Point(550, 419));
         }
 
-        public void SetSellOffer(string stockcode, int size, int price)
+        public void SetSellOffer(Order order)
         {
             //ClearScreen();
             //windowController.Click(new Point(110, 36));
@@ -176,10 +171,10 @@ namespace ohmygod
                     //    Thread.Sleep(50);
                     //}
                     //windowController.Click(new Point(550, 419));
-                    SellOffer(stockcode, size, price);
+                    SellOffer(order.stockcode, order.size, order.price);
                     Thread.Sleep(100);
                     windowController.typeString("#VK_ESCAPE#");
-                    sellOffers.Push(new Order(stockcode, size, price));
+                    sellOffers.Push(order);
                     break;
                 case TradingSystem.IMERITZ:
                     break;
@@ -255,11 +250,20 @@ namespace ohmygod
             //}
         }
 
+        int checkedbox = -1;
+
         public void CheckBuyOrder()
         {
+            
             Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
             if (rect != Rectangle.Empty)
             {
+                if (buyOrders.Count == 0) return;
+                if (checkedbox != 0)
+                {
+                    windowController.Click(new Point(rect.X + 180, rect.Y + 80));
+                    checkedbox = 0;
+                }
                 rect.X -= 41;
                 rect.Y += 116;
                 var orders = new Stack<string>();
@@ -288,7 +292,7 @@ namespace ohmygod
                     return;
                 }
                 
-                if(orders.Count == 0 && buyOrders.Count != 0)
+                if(orders.Count < buyOrders.Count && buyOrders.Count != 0)
                 {
                     List<int> idx = new();
                     for (int i = buyOrderID.Count - 1; i >= 0; i--)
@@ -301,9 +305,10 @@ namespace ohmygod
                     var buyorders = buyOrders.ToList();
                     foreach (var p in idx)
                     {
-                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
-                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
+                        SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
+                        sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
                         buyorders.RemoveAt(p);
+                        buyOrders = new Stack<Order>(buyorders);
                         Thread.Sleep(100);
                     }
                     windowController.typeString("#VK_ESCAPE#");
@@ -328,11 +333,12 @@ namespace ohmygod
                     var buyorders = buyOrders.ToList();
                     foreach (var p in idx)
                     {
-                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
-                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
+                        SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
+                        sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
                         buyorders.RemoveAt(p);
                         Thread.Sleep(100);
                     }
+                    buyOrders = new Stack<Order>(buyorders);
                     windowController.typeString("#VK_ESCAPE#");
                     
 
@@ -343,9 +349,16 @@ namespace ohmygod
 
         public void CheckSellOffers()
         {
+            
             Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
             if (rect != Rectangle.Empty)
             {
+                if (sellOffers.Count == 0) return;
+                if (checkedbox != 1)
+                {
+                    checkedbox = 1;
+                    windowController.Click(new Point(rect.X + 225, rect.Y + 80));
+                }
                 rect.X -= 41;
                 rect.Y += 116;
                 var orders = new Stack<string>();
@@ -374,52 +387,50 @@ namespace ohmygod
                     return;
                 }
 
-                if (orders.Count == 0 && buyOrders.Count != 0)
+                if (orders.Count < sellOffers.Count && sellOffers.Count != 0)
                 {
                     List<int> idx = new();
-                    for (int i = buyOrderID.Count - 1; i >= 0; i--)
+                    for (int i = sellOffers.Count - 1; i >= 0; i--)
                     {
                         idx.Add(i);
                     }
                     if (idx.Count == 0) idx.Add(0);
-                    OpenWindow("4989");
-                    Thread.Sleep(2000);
-                    var buyorders = buyOrders.ToList();
+                    var selloffers = sellOffers.ToList();
                     foreach (var p in idx)
                     {
-                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
-                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
-                        buyorders.RemoveAt(p);
+                        MySql.GetInstance().UpdateRow(selloffers[p].idx, "sold", 1);
+                        selloffers.RemoveAt(p);
+                        
                         Thread.Sleep(100);
                     }
-                    windowController.typeString("#VK_ESCAPE#");
+                    sellOffers = new Stack<Order>(selloffers);
+                    //windowController.typeString("#VK_ESCAPE#");
                     return;
                 }
-                if (buyOrderID.Count == 0) { buyOrderID.Clear(); buyOrderID = orders; }
+                if (sellOfferID.Count == 0) { sellOfferID.Clear(); sellOfferID = orders; }
 
                 else
                 {
                     List<int> idx = new();
-                    for (int i = buyOrderID.Count - 1; i >= 0; i--)
+                    for (int i = sellOfferID.Count - 1; i >= 0; i--)
                     {
-                        if (!orders.Contains(buyOrderID.ToList()[i]))
+                        if (!orders.Contains(sellOfferID.ToList()[i]))
                         {
                             idx.Add(i);
                         }
                     }
-                    buyOrderID = orders;
+                    sellOfferID = orders;
                     if (idx.Count == 0) return;
-                    OpenWindow("4989");
-                    Thread.Sleep(2000);
-                    var buyorders = buyOrders.ToList();
+                    var selloffers = sellOffers.ToList();
                     foreach (var p in idx)
                     {
-                        SellOffer(buyorders[p].Key, buyorders[p].Value, -1);
-                        sellOffers.Push(new KeyValuePair<string, int>(buyorders[p].Key, buyorders[p].Value));
-                        buyorders.RemoveAt(p);
+                        MySql.GetInstance().UpdateRow(selloffers[p].idx, "sold", 1);
+                        selloffers.RemoveAt(p);
+                        
                         Thread.Sleep(100);
                     }
-                    windowController.typeString("#VK_ESCAPE#");
+                    sellOffers = new Stack<Order>(selloffers);
+                    //windowController.typeString("#VK_ESCAPE#");
 
 
                 }

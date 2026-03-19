@@ -10,6 +10,7 @@ namespace ohmygod
 {
     internal class MySql
     {
+        private static MySql instance;
         private MySqlConnection conn;
 
         public MySql()
@@ -23,10 +24,16 @@ namespace ohmygod
             conn.Close();
         }
 
+        public static MySql GetInstance()
+        {
+            if(instance == null) instance = new MySql();
+            return instance;
+        }
+
         public DataRow PollLatestRequest()
         {
             DataSet ds = new DataSet();
-            string sql = "SELECT * FROM stock.order ORDER BY idx DESC;";
+            string sql = "SELECT * FROM stock.order WHERE bought=0 ORDER BY idx DESC;";
             MySqlDataAdapter adpt = new(sql, conn);
             adpt.Fill(ds, "order");
             if (ds.Tables[0].Rows.Count == 0) return null;
@@ -36,6 +43,12 @@ namespace ohmygod
         public void DeleteAllRows()
         {
             MySqlCommand cmd = new MySqlCommand("DELETE FROM stock.order;", conn);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateRow(int idx, string type, int done)
+        {
+            MySqlCommand cmd = new MySqlCommand("UPDATE stock.order SET " + type + "=" + done.ToString() + " WHERE idx=" + idx.ToString() + ";", conn);
             cmd.ExecuteNonQuery();
         }
     }
