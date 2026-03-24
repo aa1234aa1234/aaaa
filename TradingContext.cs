@@ -1,4 +1,5 @@
 ﻿
+using FlaUI.Core.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,11 +107,13 @@ namespace ohmygod
                     //windowController.Click(new Point(550, 419));
                     BuyOrder(stockcode, size, price);
                     MySql.GetInstance().UpdateRow(idx, "bought", 1);
+                    Console.WriteLine("buyorder idx: " + idx);
+                    buyOrders.Push(new Order(stockcode, size, price, resellprice, idx));
                     if (!stockVolume.ContainsKey(stockcode)) stockVolume.Add(stockcode, size);
                     else stockVolume[stockcode] += size;
                     Thread.Sleep(100);
                     windowController.typeString("#VK_ESCAPE#");
-                    buyOrders.Push(new Order(stockcode,size,price,resellprice));
+                    
                     break;
                 case TradingSystem.IMERITZ:
                     break;
@@ -273,16 +276,17 @@ namespace ohmygod
                     var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
                     for (int i = 0; i < a - 1; i++)
                     {
-                        Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
-                        OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
-                        OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
-                        Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
-                        var result = engine.Process(pix);
-                        Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
-                        orders.Push(result.GetText());
+                        //Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
+                        //OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
+                        //OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
+                        //Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+                        //var result = engine.Process(pix);
+                        //Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+                        //orders.Push(result.GetText());
 
-                        result.Dispose();
-                        pix.Dispose();
+                        //result.Dispose();
+                        //pix.Dispose();
+                        orders.Push(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16)));
                         rect.Y += 18;
                     }
                     engine.Dispose();
@@ -306,7 +310,8 @@ namespace ohmygod
                     foreach (var p in idx)
                     {
                         SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
-                        sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
+                        sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].price, buyorders[p].resellprice, buyorders[p].idx));
+                        Console.WriteLine(buyorders[p].idx + " " + buyorders[p].stockcode);
                         buyorders.RemoveAt(p);
                         buyOrders = new Stack<Order>(buyorders);
                         Thread.Sleep(100);
@@ -368,16 +373,17 @@ namespace ohmygod
                     var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
                     for (int i = 0; i < a - 1; i++)
                     {
-                        Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
-                        OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
-                        OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
-                        Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
-                        var result = engine.Process(pix);
-                        Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
-                        orders.Push(result.GetText());
+                        //Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
+                        //OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
+                        //OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
+                        //Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+                        //var result = engine.Process(pix);
+                        //Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+                        //orders.Push(result.GetText());
 
-                        result.Dispose();
-                        pix.Dispose();
+                        //result.Dispose();
+                        //pix.Dispose();
+                        orders.Push(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16)));
                         rect.Y += 18;
                     }
                     engine.Dispose();
@@ -399,6 +405,7 @@ namespace ohmygod
                     foreach (var p in idx)
                     {
                         MySql.GetInstance().UpdateRow(selloffers[p].idx, "sold", 1);
+                        Console.WriteLine("idx: " + selloffers[p].idx);
                         selloffers.RemoveAt(p);
                         
                         Thread.Sleep(100);
@@ -425,6 +432,7 @@ namespace ohmygod
                     foreach (var p in idx)
                     {
                         MySql.GetInstance().UpdateRow(selloffers[p].idx, "sold", 1);
+                        Console.WriteLine("idx: " + selloffers[p].idx);
                         selloffers.RemoveAt(p);
                         
                         Thread.Sleep(100);
@@ -436,6 +444,53 @@ namespace ohmygod
                 }
             }
             else if (!flag) { OpenWindow("0341"); flag = true; }
+        }
+
+        public void CheckAccount()
+        {
+            OpenWindow("0345");
+            Thread.Sleep(1000);
+            //rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/account.png", screenBitmap);
+            //windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
+            //windowController.typeString("#VK_ESCAPE#");
+            Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
+            if (rect != Rectangle.Empty)
+            {
+                rect.X -= 54;
+                rect.Y += 116 + 16;
+                windowController.MoveMouse(rect.X-1, rect.Y-1);
+                windowController.MoveRelative(1, 1);
+                var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+                try
+                {
+                    var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
+                    for (int i = 0; i < a - 1; i++)
+                    {
+                        //Bitmap bitmap = ocr(new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16));
+                        //OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
+                        //OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(68, 28));
+                        //Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+                        //var result = engine.Process(pix);
+                        //Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
+                        //orders.Push(result.GetText());
+
+                        //result.Dispose();
+                        //pix.Dispose();
+                        windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18*i);
+                        Thread.Sleep(5000);
+                        Point pos = windowController.GetMousePos();
+                        Console.WriteLine(pos + " position");
+                        Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X + 33, rect.Y + 21), new Vector2(35, 11)));
+                        rect.Y += 18;
+                    }
+                    engine.Dispose();
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+            }
+            windowController.typeString("#VK_ESCAPEK#");
         }
 
         public void StartUp(int windowTitle)
@@ -468,11 +523,7 @@ namespace ohmygod
                         if(a.Count >= 2) Console.WriteLine(a[0] + "\n" + a[1]);
                         Thread.Sleep(50);
                     } while ((a=ImageFinder.FindImage(@"../../../images/kiwoom/d.png", screenBitmap)) != null && a.Count > 1);
-                    OpenWindow("0345");
-                    Thread.Sleep(1000);
-                    rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/account.png", screenBitmap);
-                    windowController.Click(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
-                    windowController.typeString("#VK_ESCAPE#");
+                    CheckAccount();
                     break;
             }
         }

@@ -126,6 +126,9 @@ namespace ohmygod
         internal const UInt32 KEYEVENTF_UNICODE = 0x0004;
         internal const UInt32 KEYEVENTF_SCANCODE = 0x0008;
 
+        internal const UInt32 MOUSEEVENTF_MOVE = 0x0001;
+        internal const UInt32 MOUSEEVENTF_ABSOLUTE = 0x8000;
+
         public delegate bool EnumPWindowProc(IntPtr hWnd, IntPtr parameters);
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
@@ -138,6 +141,9 @@ namespace ohmygod
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        [DllImport("user32.dll")]
+        static extern int GetSystemMetrics(int nIndex);
 
         [DllImport("user32.dll")]
         static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
@@ -213,6 +219,57 @@ namespace ohmygod
                 list.Add(handle);
             }
             return true;
+        }
+
+        public Point GetMousePos()
+        {
+            POINT pos;
+            GetCursorPos(out pos);
+            return new Point(pos.X, pos.Y);
+        }
+
+        public void MoveMouse(int x, int y)
+        {
+            MoveMouseAbsolute(x, y);
+        }
+
+        public void MoveRelative(int x, int y)
+        {
+            MoveMouseRelative(x, y);
+        }
+
+        public static void MoveMouseRelative(int dx, int dy)
+        {
+            INPUT[] input = new INPUT[1];
+            input[0].Type = INPUT_MOUSE;
+            input[0].Data.Mouse.X = dx;
+            input[0].Data.Mouse.Y = dy;
+            input[0].Data.Mouse.Flags = MOUSEEVENTF_MOVE;
+            input[0].Data.Mouse.MouseData = 0;
+            input[0].Data.Mouse.Time = 0;
+            input[0].Data.Mouse.ExtraInfo = IntPtr.Zero;
+
+            SendInput(1, input, Marshal.SizeOf(typeof(INPUT)));
+        }
+
+        public static void MoveMouseAbsolute(int x, int y)
+        {
+            int screenWidth = GetSystemMetrics(0);
+            int screenHeight = GetSystemMetrics(1);
+
+            int normalizedX = (int)(x * 65535 / (screenWidth - 1));
+            int normalizedY = (int)(y * 65535 / (screenHeight - 1));
+
+            INPUT[] input = new INPUT[1];
+            input[0].Type = INPUT_MOUSE;
+            input[0].Data.Mouse.X = normalizedX;
+            input[0].Data.Mouse.Y = normalizedY;
+            input[0].Data.Mouse.Flags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
+            input[0].Data.Mouse.MouseData = 0;
+            input[0].Data.Mouse.Time = 0;
+            input[0].Data.Mouse.ExtraInfo = IntPtr.Zero;
+
+            SendInput(1, input, Marshal.SizeOf(typeof(INPUT)));
         }
 
         public static void CloseMessageBoxes(Process process)
@@ -369,6 +426,11 @@ namespace ohmygod
         public void SetWindowPos(IntPtr wnd, int x, int y, int width=0, int height=0)
         {
             SetWindowPos(wnd, IntPtr.Zero, x, y, width, height, 0);
+        }
+
+        public void SetMousePos(Point point)
+        {
+            SetCursorPos(point.X, point.Y);
         }
 
         public void FocusWindow(IntPtr wnd)
