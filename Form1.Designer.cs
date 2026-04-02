@@ -96,7 +96,7 @@
             // 
             panel1.Location = new Point(562, 122);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 195);
+            panel1.Size = new Size(184, 172);
             panel1.TabIndex = 5;
             panel1.Paint += panel1_Paint;
             // 

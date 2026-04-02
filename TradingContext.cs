@@ -460,7 +460,7 @@ namespace ohmygod
                 rect.Y += 116 + 16;
                 windowController.MoveMouse(rect.X-1, rect.Y-1);
                 windowController.MoveRelative(1, 1);
-                var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+                var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default);
                 try
                 {
                     var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
@@ -477,10 +477,13 @@ namespace ohmygod
                         //result.Dispose();
                         //pix.Dispose();
                         windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18*i);
+                        windowController.MoveRelative(1, 1);
+                        windowController.MoveRelative(-1, -1);
                         Thread.Sleep(5000);
                         Point pos = windowController.GetMousePos();
                         Console.WriteLine(pos + " position");
-                        Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X + 33, rect.Y + 21), new Vector2(35, 11)));
+                        Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 33, pos.Y + 19), new Vector2(38, 17)));
+                        Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 268, pos.Y - 3), new Vector2(68, 18)));
                         rect.Y += 18;
                     }
                     engine.Dispose();
@@ -490,7 +493,7 @@ namespace ohmygod
                     return;
                 }
             }
-            windowController.typeString("#VK_ESCAPEK#");
+            windowController.typeString("#VK_ESCAPE#");
         }
 
         public void StartUp(int windowTitle)

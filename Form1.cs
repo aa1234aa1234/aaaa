@@ -430,7 +430,7 @@ namespace ohmygod
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            //e.Graphics.DrawImage(bitmap, new Point(0, 0));
+            //e.Graphics.DrawImageUnscaled(new Bitmap(@"C:\Users\sw_303\Pictures\Screenshots\test.png"), new System.Drawing.Point(0, 0));
         }
 
         private async void button3_Click(object sender, EventArgs e)

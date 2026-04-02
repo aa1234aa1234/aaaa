@@ -1,4 +1,6 @@
 ﻿using Mysqlx.Crud;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
 using Org.BouncyCastle.Asn1.Crmf;
 using System;
 using System.Collections.Generic;
@@ -28,7 +30,11 @@ namespace ohmygod
             Bitmap bitmap = ScreenToBitmap(pos, size);
             OpenCvSharp.Mat src = OpenCvSharp.Extensions.BitmapConverter.ToMat(bitmap), dst = new OpenCvSharp.Mat();
             OpenCvSharp.Cv2.Resize(src, dst, new OpenCvSharp.Size(size.X*1.75, size.Y*1.75));
+            //bitmap = BitmapConverter.ToBitmap(dst);
+            //dst = new Mat();
+            //OpenCvSharp.Cv2.CopyMakeBorder(BitmapConverter.ToMat(bitmap), dst, 0, (int)(size.Y*1.75), 0, 0, BorderTypes.Transparent);
             Pix pix = PixConverter.ToPix(OpenCvSharp.Extensions.BitmapConverter.ToBitmap(dst));
+            //Pix pix = Pix.LoadFromFile(@"C:\Users\sw_303\Pictures\Screenshots\test.png");
             var result = engine.Process(pix);
             string res = result.GetText();
             Console.WriteLine(result.GetText() + " fjewlakfjwlaejflawef");
@@ -45,7 +51,7 @@ namespace ohmygod
             Bitmap screen = new Bitmap((int)size.X, (int)size.Y);
             using (Graphics graphic = Graphics.FromImage(screen))
             {
-                graphic.CopyFromScreen(new Point((int)start.X, (int)start.Y), Point.Empty, screen.Size);
+                graphic.CopyFromScreen(new System.Drawing.Point((int)start.X, (int)start.Y), System.Drawing.Point.Empty, screen.Size);
             }
             return screen;
         }
