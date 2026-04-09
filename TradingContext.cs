@@ -22,6 +22,7 @@ namespace ohmygod
         private TesseractEngine tesseractEngine;
         private TradingSystem tradingSystem;
         private Bitmap screenBitmap;
+        private List<KeyValuePair<string, Order>> stocks = new();
         private Dictionary<string, int> stockVolume = new();
         private Stack<Order> buyOrders = new(), sellOffers = new();
         private Stack<string> buyOrderID = new(), sellOfferID = new();
@@ -122,6 +123,9 @@ namespace ohmygod
 
         private void SellOffer(string stockcode, int size, int price)
         {
+            bool a = false;
+            foreach (var p in stocks) { if (p.Key == stockcode) { a = true; break; } }
+            if(!a) { return; }
             //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
             Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
             string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
@@ -255,7 +259,7 @@ namespace ohmygod
 
         int checkedbox = -1;
 
-        public void CheckBuyOrder()
+        public void CheckBuyOrder(bool onBoot = false, string stockcode = "")
         {
             
             Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
@@ -267,8 +271,26 @@ namespace ohmygod
                     windowController.Click(new Point(rect.X + 180, rect.Y + 80));
                     checkedbox = 0;
                 }
+                //if(stockcode != "")
+                //{
+                //    windowController.Click(new Point(rect.X - 5, rect.Y+80));
+                //    windowController.Click(new Point(rect.X +40, rect.Y + 80));
+                //    windowController.typeString(stockcode);
+                //    var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
+                //    if(a > 1) {
+                //        buyOrders.Push(new Order(stockcode, 1, 0));
+                //        windowController.typeString("#VK_ESCAPE#");
+                //        return;
+                //    }
+                //}
+                //else
+                //{
+                //    windowController.Click(new Point(rect.X - 30, rect.Y + 80));
+                //}
                 rect.X -= 41;
                 rect.Y += 116;
+                windowController.MoveMouse(rect.X - 1, rect.Y + 15);
+                windowController.MoveRelative(1, 1);
                 var orders = new Stack<string>();
                 var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
                 try
@@ -287,6 +309,18 @@ namespace ohmygod
                         //result.Dispose();
                         //pix.Dispose();
                         orders.Push(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16)));
+                        if (onBoot)
+                        {
+                            windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18 * i);
+                            windowController.MoveRelative(1, 1);
+                            windowController.MoveRelative(-1, -1);
+                            Thread.Sleep(5000);
+                            Point pos = windowController.GetMousePos();
+                            Console.WriteLine(pos + " position");
+                            var code=  ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 33, pos.Y + 19), new Vector2(38, 17));
+                            Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 268, pos.Y - 3), new Vector2(68, 18)));
+                            buyOrders.Push(new Order(code, 1, -1));
+                        }
                         rect.Y += 18;
                     }
                     engine.Dispose();
@@ -338,6 +372,7 @@ namespace ohmygod
                     var buyorders = buyOrders.ToList();
                     foreach (var p in idx)
                     {
+                        stocks.Add(new KeyValuePair<string, Order>(buyorders[p].stockcode, new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx)));
                         SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
                         sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
                         buyorders.RemoveAt(p);
@@ -352,7 +387,7 @@ namespace ohmygod
             else if(!flag) { OpenWindow("0341"); flag = true; }
         }
 
-        public void CheckSellOffers()
+        public void CheckSellOffers(bool onBoot=false)
         {
             
             Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
@@ -366,6 +401,8 @@ namespace ohmygod
                 }
                 rect.X -= 41;
                 rect.Y += 116;
+                windowController.MoveMouse(rect.X - 1, rect.Y + 15);
+                windowController.MoveRelative(1, 1);
                 var orders = new Stack<string>();
                 var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
                 try
@@ -384,6 +421,18 @@ namespace ohmygod
                         //result.Dispose();
                         //pix.Dispose();
                         orders.Push(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16)));
+                        if(onBoot)
+                        {
+                            windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18 * i);
+                            windowController.MoveRelative(1, 1);
+                            windowController.MoveRelative(-1, -1);
+                            Thread.Sleep(5000);
+                            Point pos = windowController.GetMousePos();
+                            Console.WriteLine(pos + " position");
+                            var code = ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 33, pos.Y + 19), new Vector2(38, 17));
+                            Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 268, pos.Y - 3), new Vector2(68, 18)));
+                            sellOffers.Push(new Order(code, 1, -1));
+                        }
                         rect.Y += 18;
                     }
                     engine.Dispose();

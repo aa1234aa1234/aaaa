@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\tradingengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:tradingengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\tradingcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:tradingcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -41,10 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\detector\\mysqldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:detector\\mysqldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\tradingengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|solutionrelative:tradingengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1733DC7-A503-483E-BC7C-885C66428185}|ohmygod.csproj|c:\\users\\sw_303\\desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\mysql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -93,11 +93,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ImageReader.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ImageReader.cs",
               "RelativeDocumentMoniker": "ImageReader.cs",
@@ -105,12 +105,11 @@
               "RelativeToolTip": "ImageReader.cs",
               "ViewState": "AgIAABgAAAAAAAAAAADwvx0AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T09:56:52.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-24T09:56:52.736Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Order.cs",
               "RelativeDocumentMoniker": "Order.cs",
@@ -122,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "MySqlDetector.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Detector\\MySqlDetector.cs",
               "RelativeDocumentMoniker": "Detector\\MySqlDetector.cs",
@@ -170,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "BuyOrderListener.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\EventListeners\\BuyOrderListener.cs",
               "RelativeDocumentMoniker": "EventListeners\\BuyOrderListener.cs",
@@ -178,12 +177,11 @@
               "RelativeToolTip": "EventListeners\\BuyOrderListener.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T08:31:25.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T08:31:25.503Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ImageFinder.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\ImageFinder.cs",
               "RelativeDocumentMoniker": "ImageFinder.cs",
@@ -195,13 +193,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "TradingContext.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingContext.cs",
               "RelativeDocumentMoniker": "TradingContext.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingContext.cs",
               "RelativeToolTip": "TradingContext.cs",
-              "ViewState": "AgIAANUBAAAAAAAAAAAAAOcBAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAMkBAAAAAAAAAAAAAIkBAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T07:40:18.884Z",
               "EditorCaption": ""
@@ -220,7 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "WindowEventController.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\WindowEventController.cs",
               "RelativeDocumentMoniker": "WindowEventController.cs",
@@ -256,7 +254,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "App.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\App.cs",
               "RelativeDocumentMoniker": "App.cs",
@@ -264,24 +262,24 @@
               "RelativeToolTip": "App.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T06:52:23.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-17T06:52:23.153Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "TradingEngine.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingEngine.cs",
               "RelativeDocumentMoniker": "TradingEngine.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\TradingEngine.cs",
               "RelativeToolTip": "TradingEngine.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAAADUAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAuwCIAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T05:59:24.596Z"
+              "WhenOpened": "2026-01-17T05:59:24.596Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -302,8 +300,7 @@
               "RelativeToolTip": "Form1.Designer.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAywDIAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-06T08:38:27.956Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-06T08:38:27.956Z"
             },
             {
               "$type": "Document",
@@ -343,15 +340,14 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Form1.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\sw_303\\Desktop\\\uC218\uAC15\uC0DD107\\\uAE40\uC815\uC6B0\\ohmygod\\Form1.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "Form1.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T05:47:45.836Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2025-07-12T05:47:45.836Z"
             }
           ]
         }
