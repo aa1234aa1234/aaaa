@@ -526,8 +526,9 @@ namespace ohmygod
                         //result.Dispose();
                         //pix.Dispose();
                         windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18*i);
-                        windowController.MoveRelative(1, 1);
-                        windowController.MoveRelative(-1, -1);
+                        windowController.MoveRelative(3, 3);
+                        Thread.Sleep(100);
+                        windowController.MoveRelative(-3, -3);
                         Thread.Sleep(5000);
                         Point pos = windowController.GetMousePos();
                         Console.WriteLine(pos + " position");
