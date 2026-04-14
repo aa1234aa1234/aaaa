@@ -259,13 +259,13 @@ namespace ohmygod
 
         int checkedbox = -1;
 
-        public void CheckBuyOrder(bool onBoot = false, string stockcode = "")
+        public void CheckBuyOrder(bool onBoot = false)
         {
             
             Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
             if (rect != Rectangle.Empty)
             {
-                if (buyOrders.Count == 0) return;
+                if (buyOrders.Count == 0 && !onBoot) return;
                 if (checkedbox != 0)
                 {
                     windowController.Click(new Point(rect.X + 180, rect.Y + 80));
@@ -289,8 +289,13 @@ namespace ohmygod
                 //}
                 rect.X -= 41;
                 rect.Y += 116;
-                windowController.MoveMouse(rect.X - 1, rect.Y + 15);
-                windowController.MoveRelative(1, 1);
+                if(onBoot)
+                {
+                    windowController.MoveMouse(rect.X - 1, rect.Y + 15);
+                    windowController.MoveRelative(1, 1);
+                }
+                
+                
                 var orders = new Stack<string>();
                 var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
                 try
@@ -393,7 +398,7 @@ namespace ohmygod
             Rectangle rect = ImageFinder.FindSingleImage(@"../../../images/kiwoom/da.png", screenBitmap);
             if (rect != Rectangle.Empty)
             {
-                if (sellOffers.Count == 0) return;
+                if (sellOffers.Count == 0 && !onBoot) return;
                 if (checkedbox != 1)
                 {
                     checkedbox = 1;
@@ -401,8 +406,12 @@ namespace ohmygod
                 }
                 rect.X -= 41;
                 rect.Y += 116;
-                windowController.MoveMouse(rect.X - 1, rect.Y + 15);
-                windowController.MoveRelative(1, 1);
+                if(onBoot)
+                {
+                    windowController.MoveMouse(rect.X - 1, rect.Y + 13);
+                    windowController.MoveRelative(1, 1);
+                }
+                
                 var orders = new Stack<string>();
                 var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
                 try
@@ -577,6 +586,7 @@ namespace ohmygod
                         Thread.Sleep(50);
                     } while ((a=ImageFinder.FindImage(@"../../../images/kiwoom/d.png", screenBitmap)) != null && a.Count > 1);
                     CheckAccount();
+                    OpenWindow("0341");
                     break;
             }
         }

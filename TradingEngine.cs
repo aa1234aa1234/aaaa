@@ -25,6 +25,7 @@ namespace ohmygod
         {
             System.Windows.Forms.Timer timer = new();
             timer.Interval = 1000;
+            bool flag = true;
 
             timer.Tick += (sender, e) =>
             {
@@ -32,8 +33,12 @@ namespace ohmygod
 
                 foreach (var p in detectors) 
                     p.Update();
-                tradingContext.CheckBuyOrder();
-                tradingContext.CheckSellOffers();
+                tradingContext.CheckBuyOrder(flag);
+                tradingContext.CheckSellOffers(flag);
+                if (flag)
+                {
+                    flag = false;
+                }
                 //var a = Process.GetProcessById(WindowEventController.GetPid(tradingContext.GetWindowHandle()));
                 //WindowEventController.CloseMessageBoxes(a);
             };
