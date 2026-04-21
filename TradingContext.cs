@@ -332,6 +332,7 @@ namespace ohmygod
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     return;
                 }
                 
@@ -414,6 +415,7 @@ namespace ohmygod
                 
                 var orders = new Stack<string>();
                 var engine = new TesseractEngine(@"./tessdata", "kor+eng", EngineMode.Default);
+                Console.WriteLine("debug");
                 try
                 {
                     var a = ImageFinder.FindImage(@"../../../images/kiwoom/dd.png", screenBitmap).Count;
@@ -429,18 +431,22 @@ namespace ohmygod
 
                         //result.Dispose();
                         //pix.Dispose();
+                        Console.WriteLine("debug2");
                         orders.Push(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(rect.X, rect.Y + 3), new Vector2(39, 16)));
-                        if(onBoot)
+                        Console.WriteLine("orders: " + orders.Count);
+                        if (onBoot)
                         {
                             windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18 * i);
-                            windowController.MoveRelative(1, 1);
-                            windowController.MoveRelative(-1, -1);
-                            Thread.Sleep(5000);
+                            windowController.MoveRelative(3, 3);
+                            windowController.MoveRelative(-3, -3);
+                            Thread.Sleep(500);
                             Point pos = windowController.GetMousePos();
                             Console.WriteLine(pos + " position");
                             var code = ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 33, pos.Y + 19), new Vector2(38, 17));
                             Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 268, pos.Y - 3), new Vector2(68, 18)));
                             sellOffers.Push(new Order(code, 1, -1));
+                            Console.WriteLine(sellOffers.Count);
+                            
                         }
                         rect.Y += 18;
                     }
@@ -448,6 +454,7 @@ namespace ohmygod
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     return;
                 }
 
@@ -578,13 +585,6 @@ namespace ohmygod
                         else windowController.typeString("#VK_ESCAPE#");
                     }
                     ClearScreen();
-                    List<Rectangle>? a=new();
-                    do
-                    {
-                        Console.WriteLine(a.Count);
-                        if(a.Count >= 2) Console.WriteLine(a[0] + "\n" + a[1]);
-                        Thread.Sleep(50);
-                    } while ((a=ImageFinder.FindImage(@"../../../images/kiwoom/d.png", screenBitmap)) != null && a.Count > 1);
                     CheckAccount();
                     OpenWindow("0341");
                     break;

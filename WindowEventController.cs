@@ -418,9 +418,10 @@ namespace ohmygod
         public void Click(Point point, Point offset=new Point())
         {
             point.Offset(offset);
-            SetCursorPos(point.X, point.Y);
+            //SetCursorPos(point.X, point.Y);
             Mouse.LeftClick(point);
             Console.WriteLine(point);
+            Thread.Sleep(500);
         }
 
         public void SetWindowPos(IntPtr wnd, int x, int y, int width=0, int height=0)
