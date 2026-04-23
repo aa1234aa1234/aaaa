@@ -83,6 +83,7 @@ namespace ohmygod
             //{
             //    windowController.Click(new Point(a.X + a.Width / 2, a.Y + a.Height / 2));
             //}
+            
             OpenWindow("4989");
             Thread.Sleep(2000);
             
@@ -317,9 +318,9 @@ namespace ohmygod
                         if (onBoot)
                         {
                             windowController.MoveRelative(40 * (i > 0 ? 0 : 1), 18 * i);
-                            windowController.MoveRelative(1, 1);
-                            windowController.MoveRelative(-1, -1);
-                            Thread.Sleep(5000);
+                            windowController.MoveRelative(3, 3);
+                            windowController.MoveRelative(-3, -3);
+                            Thread.Sleep(500);
                             Point pos = windowController.GetMousePos();
                             Console.WriteLine(pos + " position");
                             var code=  ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 33, pos.Y + 19), new Vector2(38, 17));
