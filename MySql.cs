@@ -30,6 +30,46 @@ namespace ohmygod
             return instance;
         }
 
+        public void UpdateWhitelist(string stockcode, int bought=-1, int sold=-1)
+        {
+            MySqlCommand cmd;
+            if (bought > 0 && sold > 0)  cmd = new MySqlCommand("UPDATE stock.whitelist SET bought" + "=" + bought + ", sold=" + sold + " WHERE stockcode='" + stockcode + "';", conn);
+            else if(bought > 0) cmd = new MySqlCommand("UPDATE stock.whitelist SET bought" + "=" + bought + " WHERE stockcode='" + stockcode + "';", conn);
+            else cmd = new MySqlCommand("UPDATE stock.whitelist SET sold=" + sold + " WHERE stockcode='" + stockcode + "';", conn);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public DataRowCollection PollWhitelist()
+        {
+            DataSet ds = new DataSet();
+            string sql = "SELECT * FROM stock.whitelist WHERE bought=0 ORDER BY idx DESC;";
+            MySqlDataAdapter adpt = new(sql, conn);
+            adpt.Fill(ds, "whitelist");
+            if (ds.Tables[0].Rows.Count == 0) return null;
+            return ds.Tables[0].Rows;
+        }
+
+        public DataRowCollection GetAllPendingBuyRequest()
+        {
+            DataSet ds = new DataSet();
+            string sql = "SELECT * FROM stock.order WHERE bought=0 ORDER BY idx DESC;";
+            MySqlDataAdapter adpt = new(sql, conn);
+            adpt.Fill(ds, "order");
+            if (ds.Tables[0].Rows.Count == 0) return null;
+            return ds.Tables[0].Rows;
+        }
+
+        public DataRowCollection GetAllPendingSellRequest()
+        {
+            DataSet ds = new DataSet();
+            string sql = "SELECT * FROM stock.order WHERE sold=0 ORDER BY idx DESC;";
+            MySqlDataAdapter adpt = new(sql, conn);
+            adpt.Fill(ds, "order");
+            if (ds.Tables[0].Rows.Count == 0) return null;
+            return ds.Tables[0].Rows;
+        }
+
         public DataRow PollLatestRequest()
         {
             DataSet ds = new DataSet();
@@ -38,6 +78,12 @@ namespace ohmygod
             adpt.Fill(ds, "order");
             if (ds.Tables[0].Rows.Count == 0) return null;
             return ds.Tables[0].Rows[0];
+        }
+
+        public void Insert(string sql)
+        {
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
         }
 
         public void DeleteAllRows()
@@ -50,6 +96,15 @@ namespace ohmygod
         {
             MySqlCommand cmd = new MySqlCommand("UPDATE stock.order SET " + type + "=" + done.ToString() + " WHERE idx=" + idx.ToString() + ";", conn);
             cmd.ExecuteNonQuery();
+        }
+
+        public int PollStockPrice(string stockcode)
+        {
+            DataSet ds = new DataSet();
+            string sql = "SELECT * FROM chatting.stockprice WHERE stockcode='" + stockcode + "' ORDER BY idx DESC;";
+            MySqlDataAdapter adpt = new(sql, conn);
+            adpt.Fill(ds, "price");
+            return int.Parse(ds.Tables[0].Rows[0].ToString());
         }
     }
 }

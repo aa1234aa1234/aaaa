@@ -26,6 +26,7 @@ namespace ohmygod
         private Dictionary<string, int> stockVolume = new();
         private Stack<Order> buyOrders = new(), sellOffers = new();
         private Stack<string> buyOrderID = new(), sellOfferID = new();
+        private Dictionary<string, int> stockPrice = new();
         public static string[] windowNames;
         private int window;
         private IntPtr wnd;
@@ -51,9 +52,45 @@ namespace ohmygod
             tesseractEngine.Dispose();
         }
 
+        public void UpdateStock()
+        {
+            System.Data.DataRowCollection whitelist = MySql.GetInstance().PollWhitelist();
+            foreach(System.Data.DataRow p in whitelist)
+            {
+                if (buyOrders.Any(a => (a.stockcode == p["stockcode"].ToString())))
+                {
+                    continue;
+                }
+                //BuyOrder(p["stockcode"].ToString(), 1, int.Parse(p["price"].ToString()));
+                //buyOrders.Push(new Order(p["stockcode"].ToString(), 1, int.Parse(p["price"].ToString())));
+            }
+
+
+        }
+
+        public void UpdateStockPrice(MySql sql)
+        {
+            foreach(var p in stockPrice)
+            {
+                stockPrice[p.Key] = sql.PollStockPrice(p.Key);
+            }
+        }
+
+        public void Sell()
+        {
+            foreach(var p in sellOffers)
+            {
+                if (p.isOrderUp == 1) continue;
+                if (stockPrice[p.stockcode] > p.price * 1.1) SellOffer(p.stockcode, p.size, stockPrice[p.stockcode]);
+                else if (stockPrice[p.stockcode] < p.price * 1.03) SellOffer(p.stockcode, p.size, stockPrice[p.stockcode]);
+            }
+        }
 
         private void BuyOrder(string stockcode, int size, int price)
         {
+            bool a = false;
+            //foreach (var p in stocks) { if (p.Key == stockcode) { a = true; break; } }
+            //if (!a) { return; }
             Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
             string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
             Bitmap buy = new Bitmap(@"../../../images/kiwoom/buy1.png");
@@ -110,7 +147,7 @@ namespace ohmygod
                     BuyOrder(stockcode, size, price);
                     MySql.GetInstance().UpdateRow(idx, "bought", 1);
                     Console.WriteLine("buyorder idx: " + idx);
-                    buyOrders.Push(new Order(stockcode, size, price, resellprice, idx));
+                    buyOrders.Push(new Order(stockcode, size, price, resellprice, idx, 1));
                     if (!stockVolume.ContainsKey(stockcode)) stockVolume.Add(stockcode, size);
                     else stockVolume[stockcode] += size;
                     Thread.Sleep(100);
@@ -122,11 +159,8 @@ namespace ohmygod
             }
         }
 
-        private void SellOffer(string stockcode, int size, int price)
+        private void SellOffer(string stockcode, int size, int price, Order order = null)
         {
-            bool a = false;
-            foreach (var p in stocks) { if (p.Key == stockcode) { a = true; break; } }
-            if(!a) { return; }
             //Point[] offset = { new Point(350, 30), new Point(270, 70), new Point(270, 117), new Point(270, 150), new Point(270, 205) };
             Point[] offset = { new Point(80, -20), new Point(0, 20), new Point(0, 60), new Point(0, 100), new Point(0, 160) };
             string[] input = { "690201", stockcode, size.ToString(), price.ToString() };
@@ -145,6 +179,7 @@ namespace ohmygod
                 Thread.Sleep(50);
             }
             windowController.Click(new Point(550, 419));
+            order.isOrderUp = 1;
         }
 
         public void SetSellOffer(Order order)
@@ -325,7 +360,7 @@ namespace ohmygod
                             Console.WriteLine(pos + " position");
                             var code=  ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 33, pos.Y + 19), new Vector2(38, 17));
                             Console.WriteLine(ImageReader.GetInstance().ReadBitmap(engine, new Vector2(pos.X + 268, pos.Y - 3), new Vector2(68, 18)));
-                            buyOrders.Push(new Order(code, 1, -1));
+                            buyOrders.Push(new Order(code, 1, -1, -1, -1, 1));
                         }
                         rect.Y += 18;
                     }
@@ -380,7 +415,8 @@ namespace ohmygod
                     foreach (var p in idx)
                     {
                         stocks.Add(new KeyValuePair<string, Order>(buyorders[p].stockcode, new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx)));
-                        SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
+                        stockPrice.Add(buyorders[p].stockcode, buyorders[p].price);
+                        //SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
                         sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
                         buyorders.RemoveAt(p);
                         Thread.Sleep(100);

@@ -31,12 +31,12 @@
             components = new System.ComponentModel.Container();
             button1 = new Button();
             label1 = new Label();
-            textBox1 = new TextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             button2 = new Button();
             label2 = new Label();
             panel1 = new Panel();
             button3 = new Button();
+            listView1 = new ListView();
             SuspendLayout();
             // 
             // button1
@@ -58,15 +58,6 @@
             label1.Size = new Size(39, 15);
             label1.TabIndex = 1;
             label1.Text = "label1";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(96, 100);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(403, 54);
-            textBox1.TabIndex = 2;
-            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // timer1
             // 
@@ -110,16 +101,24 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // listView1
+            // 
+            listView1.Location = new Point(77, 104);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(401, 144);
+            listView1.TabIndex = 7;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(listView1);
             Controls.Add(button3);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(button2);
-            Controls.Add(textBox1);
             Controls.Add(label1);
             Controls.Add(button1);
             Name = "Form1";
@@ -133,11 +132,11 @@
 
         private Button button1;
         private Label label1;
-        private TextBox textBox1;
         private System.Windows.Forms.Timer timer1;
         private Button button2;
         private Label label2;
         private Panel panel1;
         private Button button3;
+        private ListView listView1;
     }
 }

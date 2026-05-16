@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace ohmygod
 {
-    internal class TradingEngine
+    internal class TradingEngine 
     {
+        private string user_uuid="";
         private TradingContext tradingContext;
         private List<IDetector> detectors = new();
         public TradingEngine() {
@@ -25,13 +26,19 @@ namespace ohmygod
         {
             System.Windows.Forms.Timer timer = new();
             timer.Interval = 1000;
+            float lastTime = DateTimeOffset.Now.ToUnixTimeMilliseconds(), deltaTime = 0;
             bool flag = true;
 
             timer.Tick += (sender, e) =>
             {
-                
+                deltaTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() - lastTime;
+                if(deltaTime >= 10000) {
+                    lastTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                    tradingContext.UpdateStockPrice(MySql.GetInstance());
+                    tradingContext.Sell();
+                }
 
-                foreach (var p in detectors) 
+                foreach (var p in detectors)
                     p.Update();
                 tradingContext.CheckBuyOrder(flag);
                 tradingContext.CheckSellOffers(flag);
@@ -71,6 +78,9 @@ namespace ohmygod
         public void SetWindow(int a) {  tradingContext.SetWindow(a); }
 
         public int GetWindow() {  return tradingContext.GetWindow(); }
+
+        public string GetUuid() { return user_uuid; }
+        public void SetUuid(string a) { user_uuid = a; }
 
     }
 }
