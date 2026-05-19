@@ -29,7 +29,7 @@ namespace ohmygod
         {
             InitializeComponent();
             Console.WriteLine("hello1");
-
+            
             app.run(this);
         }
 

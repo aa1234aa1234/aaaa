@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using FlaUI.Core.AutomationElements;
+using Microsoft.VisualBasic;
 using ohmygod.EventListeners;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,14 @@ namespace ohmygod
             {
                 loginPrompt();
             }
+            form.dataGridView1.DataSource = MySql.GetInstance().PollEntireWhitelist(engine.GetUuid());
             engine.run(form);
         }
 
         public void loginPrompt()
         {
             string info = Interaction.InputBox("account info");
+            if (info == String.Empty) { loginPrompt(); return; }
             engine.SetUuid(CreateUuid(info).ToString());
             MessageBox.Show(engine.GetUuid());
         }

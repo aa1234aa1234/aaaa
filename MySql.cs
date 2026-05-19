@@ -50,6 +50,26 @@ namespace ohmygod
             return ds.Tables[0].Rows;
         }
 
+        public DataRowCollection PollWhitelist2()
+        {
+            DataSet ds = new DataSet();
+            string sql = "SELECT * FROM stock.whitelist WHERE bought=1 and sold=0 ORDER BY idx DESC;";
+            MySqlDataAdapter adpt = new(sql, conn);
+            adpt.Fill(ds, "whitelist");
+            if (ds.Tables[0].Rows.Count == 0) return null;
+            return ds.Tables[0].Rows;
+        }
+
+        public DataTable PollEntireWhitelist(string uuid)
+        {
+            DataTable ds = new();
+            string sql = "SELECT * FROM stock.whitelist WHERE user_uuid = '" + uuid + "';";
+            MySqlDataAdapter adpt = new(sql, conn);
+            adpt.Fill(ds);
+            return ds;
+        }
+
+
         public DataRowCollection GetAllPendingBuyRequest()
         {
             DataSet ds = new DataSet();
@@ -97,6 +117,7 @@ namespace ohmygod
             MySqlCommand cmd = new MySqlCommand("UPDATE stock.order SET " + type + "=" + done.ToString() + " WHERE idx=" + idx.ToString() + ";", conn);
             cmd.ExecuteNonQuery();
         }
+
 
         public int PollStockPrice(string stockcode)
         {
