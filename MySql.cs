@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,30 +31,35 @@ namespace ohmygod
             return instance;
         }
 
-        public void UpdateWhitelist(string stockcode, int bought=-1, int sold=-1)
+        public void UpdateWhitelist(string uuid, string stockcode, int bought=-1, int sold=-1)
         {
             MySqlCommand cmd;
-            if (bought > 0 && sold > 0)  cmd = new MySqlCommand("UPDATE stock.whitelist SET bought" + "=" + bought + ", sold=" + sold + " WHERE stockcode='" + stockcode + "';", conn);
-            else if(bought > 0) cmd = new MySqlCommand("UPDATE stock.whitelist SET bought" + "=" + bought + " WHERE stockcode='" + stockcode + "';", conn);
-            else cmd = new MySqlCommand("UPDATE stock.whitelist SET sold=" + sold + " WHERE stockcode='" + stockcode + "';", conn);
+            string sql;
+            if (bought > 0 && sold > 0) sql = "UPDATE stock.whitelist SET bought" + "=" + bought + ", sold=" + sold + " WHERE  user_uuid = '%s'and stockcode='" + stockcode + "';";
+            else if (bought > 0) sql = "UPDATE stock.whitelist SET bought" + "=" + bought + " WHERE  user_uuid = '%s' and stockcode='" + stockcode + "';";
+            else sql = "UPDATE stock.whitelist SET sold=" + sold + " WHERE  user_uuid = '%s' and stockcode='" + stockcode + "';";
+            sql = string.Format(sql, uuid);
+            cmd = new(sql, conn);
 
             cmd.ExecuteNonQuery();
         }
 
-        public DataRowCollection PollWhitelist()
+        public DataRowCollection PollWhitelist(string uuid)
         {
             DataSet ds = new DataSet();
-            string sql = "SELECT * FROM stock.whitelist WHERE bought=0 ORDER BY idx DESC;";
+            string sql = "SELECT * FROM stock.whitelist WHERE user_uuid = '%s' and  bought=0 ORDER BY idx DESC;";
+            sql = string.Format(sql, uuid);
             MySqlDataAdapter adpt = new(sql, conn);
             adpt.Fill(ds, "whitelist");
             if (ds.Tables[0].Rows.Count == 0) return null;
             return ds.Tables[0].Rows;
         }
 
-        public DataRowCollection PollWhitelist2()
+        public DataRowCollection PollWhitelist2(string uuid)
         {
             DataSet ds = new DataSet();
-            string sql = "SELECT * FROM stock.whitelist WHERE bought=1 and sold=0 ORDER BY idx DESC;";
+            string sql = "SELECT * FROM stock.whitelist WHERE user_uuid = '%s' and bought=1 and sold=0 ORDER BY idx DESC;";
+            sql = string.Format(sql, uuid);
             MySqlDataAdapter adpt = new(sql, conn);
             adpt.Fill(ds, "whitelist");
             if (ds.Tables[0].Rows.Count == 0) return null;

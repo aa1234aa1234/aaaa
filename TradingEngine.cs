@@ -24,6 +24,7 @@ namespace ohmygod
 
         public void run(Form1 form)
         {
+            tradingContext.user_uuid = user_uuid;
             System.Windows.Forms.Timer timer = new();
             timer.Interval = 1000;
             float lastTime = DateTimeOffset.Now.ToUnixTimeMilliseconds(), deltaTime = 0;
@@ -44,6 +45,7 @@ namespace ohmygod
                 tradingContext.CheckSellOffers(flag);
                 if (flag)
                 {
+                    tradingContext.UpdateStock();
                     flag = false;
                 }
                 //var a = Process.GetProcessById(WindowEventController.GetPid(tradingContext.GetWindowHandle()));

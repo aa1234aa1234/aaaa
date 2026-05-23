@@ -29,6 +29,7 @@ namespace ohmygod
         private Dictionary<string, int> stockPrice = new();
         public static string[] windowNames;
         private int window;
+        public string user_uuid;
         private IntPtr wnd;
 
         
@@ -54,7 +55,8 @@ namespace ohmygod
 
         public void UpdateStock()
         {
-            System.Data.DataRowCollection whitelist = MySql.GetInstance().PollWhitelist();
+            System.Data.DataRowCollection whitelist = MySql.GetInstance().PollWhitelist(user_uuid);
+            if (whitelist == null) return;
             foreach(System.Data.DataRow p in whitelist)
             {
                 if (buyOrders.Any(a => (a.stockcode == p["stockcode"].ToString())))
@@ -67,7 +69,7 @@ namespace ohmygod
                 int resell = int.Parse(p["resellprice"].ToString());
                 MySql.GetInstance().Insert(string.Format("INSERT INTO stock.order VALUES (0, 'BUY', '%s', 1, %d, %d, 0, 0);", p["stockcode"].ToString(), price, resell));
             }
-            whitelist = MySql.GetInstance().PollWhitelist2();
+            whitelist = MySql.GetInstance().PollWhitelist2(user_uuid);
             foreach (System.Data.DataRow p in whitelist)
             {
                 if (sellOffers.Any(a => (a.stockcode == p["stockcode"].ToString())))
@@ -402,7 +404,7 @@ namespace ohmygod
                     {
                         //SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
                         sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].price, buyorders[p].resellprice, buyorders[p].idx));
-                        MySql.GetInstance().UpdateWhitelist(buyorders[p].stockcode, 1);
+                        MySql.GetInstance().UpdateWhitelist(user_uuid, buyorders[p].stockcode, 1);
                         Console.WriteLine(buyorders[p].idx + " " + buyorders[p].stockcode);
                         buyorders.RemoveAt(p);
                         buyOrders = new Stack<Order>(buyorders);
@@ -432,7 +434,7 @@ namespace ohmygod
                     {
                         stocks.Add(new KeyValuePair<string, Order>(buyorders[p].stockcode, new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx)));
                         stockPrice.Add(buyorders[p].stockcode, buyorders[p].price);
-                        MySql.GetInstance().UpdateWhitelist(buyorders[p].stockcode, 1);
+                        MySql.GetInstance().UpdateWhitelist(user_uuid, buyorders[p].stockcode, 1);
                         //SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
                         sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
                         buyorders.RemoveAt(p);
@@ -526,7 +528,7 @@ namespace ohmygod
                         MySql.GetInstance().UpdateRow(selloffers[p].idx, "sold", 1);
                         Console.WriteLine("idx: " + selloffers[p].idx);
                         selloffers.RemoveAt(p);
-                        MySql.GetInstance().UpdateWhitelist(selloffers[p].stockcode, -1, 1);
+                        MySql.GetInstance().UpdateWhitelist(user_uuid, selloffers[p].stockcode, -1, 1);
 
                         Thread.Sleep(100);
                     }
@@ -552,7 +554,7 @@ namespace ohmygod
                     foreach (var p in idx)
                     {
                         MySql.GetInstance().UpdateRow(selloffers[p].idx, "sold", 1);
-                        MySql.GetInstance().UpdateWhitelist(selloffers[p].stockcode, -1, 1);
+                        MySql.GetInstance().UpdateWhitelist(user_uuid, selloffers[p].stockcode, -1, 1);
                         Console.WriteLine("idx: " + selloffers[p].idx);
                         selloffers.RemoveAt(p);
                         
