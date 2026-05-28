@@ -67,6 +67,7 @@ namespace ohmygod
                 //buyOrders.Push(new Order(p["stockcode"].ToString(), 1, int.Parse(p["price"].ToString())));
                 int price = int.Parse(p["price"].ToString());
                 int resell = int.Parse(p["resellprice"].ToString());
+                stockPrice.Add(p["stockcode"].ToString(), price);
                 MySql.GetInstance().Insert(string.Format("INSERT INTO stock.order VALUES (0, 'BUY', '%s', 1, %d, %d, 0, 0);", p["stockcode"].ToString(), price, resell));
             }
             whitelist = MySql.GetInstance().PollWhitelist2(user_uuid);
@@ -433,7 +434,7 @@ namespace ohmygod
                     foreach (var p in idx)
                     {
                         stocks.Add(new KeyValuePair<string, Order>(buyorders[p].stockcode, new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx)));
-                        stockPrice.Add(buyorders[p].stockcode, buyorders[p].price);
+                        //stockPrice.Add(buyorders[p].stockcode, buyorders[p].price);
                         MySql.GetInstance().UpdateWhitelist(user_uuid, buyorders[p].stockcode, 1);
                         //SellOffer(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice);
                         sellOffers.Push(new Order(buyorders[p].stockcode, buyorders[p].size, buyorders[p].resellprice, buyorders[p].idx));
